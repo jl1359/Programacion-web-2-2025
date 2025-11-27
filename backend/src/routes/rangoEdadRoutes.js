@@ -1,4 +1,3 @@
-// src/routes/rangoEdadRoutes.js
 import express from 'express';
 import {
     getRangosEdad,

@@ -1,4 +1,3 @@
-// src/routes/dificultadRoutes.js
 import express from 'express';
 import {
     getDificultades,

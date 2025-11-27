@@ -14,6 +14,6 @@ const categoriaSchema = new mongoose.Schema({
     descripcion: { type: String },
     subcategorias: [subcategoriaSchema],
     rangos: [rangoSchema]
-}, { collection: 'Proyecto.categoria' }); // Explicitly mapping to existing collection name if needed, or just 'categorias'
+}, { collection: 'categoria' });
 
 export default mongoose.model('Categoria', categoriaSchema);
