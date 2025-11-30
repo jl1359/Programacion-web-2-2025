@@ -1,4 +1,5 @@
 import express from 'express';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
 import {
     getCategorias,
     getCategoriaById,
@@ -8,11 +9,25 @@ import {
 } from '../controllers/categoriaController.js';
 
 const router = express.Router();
-
 router.get('/', getCategorias);
 router.get('/:id', getCategoriaById);
-router.post('/', createCategoria);
-router.put('/:id', updateCategoria);
-router.delete('/:id', deleteCategoria);
-
+router.post(
+    '/',
+    authMiddleware,
+    requireRole('admin', 'profesor'),
+    createCategoria
+);
+router.put(
+    '/:id',
+    authMiddleware,
+    requireRole('admin', 'profesor'),
+    updateCategoria
+);
+//borrar solo para el administrador
+router.delete(
+    '/:id',
+    authMiddleware,
+    requireRole('admin'),
+    deleteCategoria
+);
 export default router;
