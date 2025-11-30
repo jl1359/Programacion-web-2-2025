@@ -1,25 +1,50 @@
 import Dificultad from '../models/Dificultad.js';
+import mongoose from 'mongoose';
 //get
 export const getDificultades = async (req, res) => {
     try {
-        const dificultades = await Dificultad.find();
-        res.json(dificultades);
+        const dificultades = await Dificultad.find().lean();
+        return res.status(200).json({
+        ok: true,
+        message: 'Dificultades obtenidas correctamente',
+        data: dificultades,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al listar dificultades' });
+        console.error('Error al listar dificultades:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al listar dificultades',
+        });
     }
 };
 //get
 export const getDificultadById = async (req, res) => {
     try {
-        const dificultad = await Dificultad.findById(req.params.id);
-        if (!dificultad) {
-        return res.status(404).json({ message: 'Dificultad no encontrada' });
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'id de dificultad inválido',
+        });
         }
-        res.json(dificultad);
+        const dificultad = await Dificultad.findById(id);
+        if (!dificultad) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.status(200).json({
+        ok: true,
+        message: 'Dificultad obtenida correctamente',
+        data: dificultad,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al obtener dificultad' });
+        console.error('Error al obtener dificultad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al obtener dificultad',
+        });
     }
 };
 //post
@@ -32,8 +57,7 @@ export const createDificultad = async (req, res) => {
         res.status(400).json({ message: 'Error al crear dificultad' });
     }
     };
-
-    // PUT /api/dificultades/:id
+    //put
     export const updateDificultad = async (req, res) => {
     try {
         const actualizada = await Dificultad.findByIdAndUpdate(
