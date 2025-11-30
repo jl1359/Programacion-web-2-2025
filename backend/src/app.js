@@ -8,13 +8,13 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/api/auth', registroRoutes);
+app.use('/api/inicio', registroRoutes);
 app.use('/api/categorias', categoriaRoutes);
 app.use('/api/dificultades', dificultadRoutes);
 app.use('/api/rangos-edad', rangoEdadRoutes);
 
 app.get('/', (req, res) => {
-    res.send('api cuestionarios funcionando');
+    res.send('api funcionando correctamente');
 });
 
 export default app;

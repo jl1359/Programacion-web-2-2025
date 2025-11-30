@@ -13,7 +13,7 @@ export const getRangosEdad = async (req, res) => {
         console.error('Error al listar rangos de edad:', error);
         return res.status(500).json({
         ok: false,
-        message: 'Error al listar rangos de edad',
+        message: 'error al listar rangos de edad',
         });
     }
 };
@@ -24,7 +24,7 @@ export const getRangoEdadById = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             ok: false,
-            message: 'ID de rango de edad inválido',
+            message: 'id de rango de edad inválido',
         });
         }
 
@@ -33,7 +33,7 @@ export const getRangoEdadById = async (req, res) => {
         if (!rango) {
         return res.status(404).json({
             ok: false,
-            message: 'Rango de edad no encontrado',
+            message: 'rango de edad no encontrado',
         });
         }
 
@@ -46,7 +46,7 @@ export const getRangoEdadById = async (req, res) => {
         console.error('Error al obtener rango de edad:', error);
         return res.status(500).json({
         ok: false,
-        message: 'Error al obtener rango de edad',
+        message: 'error al obtener rango de edad',
         });
     }
 };

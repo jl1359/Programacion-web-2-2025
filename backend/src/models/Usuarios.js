@@ -1,6 +1,4 @@
-// backend/src/models/Usuario.js
 import mongoose from 'mongoose';
-
 const usuarioSchema = new mongoose.Schema(
     {
         nombre: {
@@ -15,7 +13,7 @@ const usuarioSchema = new mongoose.Schema(
         lowercase: true,
         trim: true,
         },
-        password:{ //contraseña 
+        password:{
         type: String,
         required: true,
         },
@@ -30,5 +28,4 @@ const usuarioSchema = new mongoose.Schema(
         timestamps: true,
     }
 );
-
 export default mongoose.model('Usuario', usuarioSchema);

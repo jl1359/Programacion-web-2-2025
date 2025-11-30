@@ -24,7 +24,7 @@ export const getDificultadById = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             ok: false,
-            message: 'ID de dificultad inválido',
+            message: 'id de dificultad inválido',
         });
         }
         const dificultad = await Dificultad.findById(id);
@@ -47,7 +47,6 @@ export const getDificultadById = async (req, res) => {
         });
     }
 };
-
 //post
 export const createDificultad = async (req, res) => {
     try {
@@ -58,8 +57,7 @@ export const createDificultad = async (req, res) => {
         res.status(400).json({ message: 'Error al crear dificultad' });
     }
     };
-
-    // PUT /api/dificultades/:id
+    //put
     export const updateDificultad = async (req, res) => {
     try {
         const actualizada = await Dificultad.findByIdAndUpdate(
