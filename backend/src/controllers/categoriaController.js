@@ -9,7 +9,7 @@ export const getCategorias = async (req, res) => {
         .lean();
         return res.status(200).json({
         ok: true,
-        message: 'Categorias obtenidas correctamente',
+        message: 'Categorias obtenidas',
         data: categorias,
         });
     } catch (error) {
@@ -27,7 +27,7 @@ export const getCategoriaById = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             ok: false,
-            message: 'id de categoria invalido',
+            message: 'id de categoria',
         });
         }
         const categoria = await Categoria.findById(id)
@@ -41,7 +41,7 @@ export const getCategoriaById = async (req, res) => {
         }
         return res.status(200).json({
         ok: true,
-        message: 'Categoria obtenida correctamente',
+        message: 'Categoria obtenida',
         data: categoria,
         });
     } catch (error) {
@@ -52,43 +52,82 @@ export const getCategoriaById = async (req, res) => {
         });
     }
 };
-//post
+//create
 export const createCategoria = async (req, res) => {
     try {
         const nueva = await Categoria.create(req.body);
-        res.status(201).json(nueva);
+        return res.status(201).json({
+        ok: true,
+        message: 'Categoria creada',
+        data: nueva,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Error al crear categoria' });
+        console.error('Error al crear categoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear categoria',
+        });
     }
 };
-//put
+//update
 export const updateCategoria = async (req, res) => {
     try {
-        const actualizada = await Categoria.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-        );
-        if (!actualizada) {
-        return res.status(404).json({ message: 'Categoria no encontrada' });
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de categoria incorrecto',
+        });
         }
-        res.json(actualizada);
+        const actualizada = await Categoria.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        });
+        if (!actualizada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Categoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Categoria actualizada',
+        data: actualizada,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Error al actualizar categoria' });
+        console.error('Error al actualizar categoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar categoria',
+        });
     }
 };
 //delete
 export const deleteCategoria = async (req, res) => {
     try {
-        const eliminada = await Categoria.findByIdAndDelete(req.params.id);
-        if (!eliminada) {
-        return res.status(404).json({ message: 'Categoria no encontrada' });
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de categoria incorrecto',
+        });
         }
-        res.json({ message: 'Categoria eliminada' });
+        const eliminada = await Categoria.findByIdAndDelete(id);
+        if (!eliminada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Categoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Categoria eliminada',
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al eliminar categoria' });
+        console.error('Error al eliminar categoria:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar categoria',
+        });
     }
-};
+};;

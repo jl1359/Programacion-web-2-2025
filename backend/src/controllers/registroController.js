@@ -59,11 +59,11 @@ export const login = async (req, res) =>{
         }
         const usuario = await Usuario.findOne({ correo });
         if (!usuario) {
-        return res.status(401).json({ message: 'Credenciales invalidas' });
+        return res.status(401).json({ message: 'Credenciales incorrectas' });
         }
         const coincide = await bcrypt.compare(password, usuario.password);
         if (!coincide) {
-        return res.status(401).json({ message: 'Credenciales invalidas' });
+        return res.status(401).json({ message: 'Credenciales incorrectas' });
         }
         const token = generarToken(usuario);
         res.json({
