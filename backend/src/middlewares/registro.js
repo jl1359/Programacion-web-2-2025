@@ -13,7 +13,7 @@ export function authMiddleware(req, res, next) {
         next();
     } catch (err) {
         console.error('Error verificando token', err.message);
-        return res.status(401).json({ message: 'Token inválido/expirado' });
+        return res.status(401).json({ message: 'Token incorrecto/expirado' });
     }
 }
 export function requireRole(...rolesPermitidos) {

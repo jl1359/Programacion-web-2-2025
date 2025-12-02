@@ -6,7 +6,7 @@ export const getDificultades = async (req, res) => {
         const dificultades = await Dificultad.find().lean();
         return res.status(200).json({
         ok: true,
-        message: 'Dificultades obtenidas correctamente',
+        message: 'Dificultades obtenidas',
         data: dificultades,
         });
     } catch (error) {
@@ -24,7 +24,7 @@ export const getDificultadById = async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
             ok: false,
-            message: 'id de dificultad inválido',
+            message: 'Id de dificultad inválido',
         });
         }
         const dificultad = await Dificultad.findById(id);
@@ -36,7 +36,7 @@ export const getDificultadById = async (req, res) => {
         }
         return res.status(200).json({
         ok: true,
-        message: 'Dificultad obtenida correctamente',
+        message: 'Dificultad obtenida',
         data: dificultad,
         });
     } catch (error) {
@@ -47,43 +47,82 @@ export const getDificultadById = async (req, res) => {
         });
     }
 };
-//post
+//create
 export const createDificultad = async (req, res) => {
     try {
         const nueva = await Dificultad.create(req.body);
-        res.status(201).json(nueva);
+        return res.status(201).json({
+        ok: true,
+        message: 'Dificultad creada',
+        data: nueva,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Error al crear dificultad' });
+        console.error('Error al crear dificultad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear dificultad',
+        });
     }
-    };
-    //put
-    export const updateDificultad = async (req, res) => {
+};
+//update
+export const updateDificultad = async (req, res) => {
     try {
-        const actualizada = await Dificultad.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-        );
-        if (!actualizada) {
-        return res.status(404).json({ message: 'Dificultad no encontrada' });
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de dificultad incorrecto',
+        });
         }
-        res.json(actualizada);
+        const actualizada = await Dificultad.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        });
+        if (!actualizada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Dificultad actualizada',
+        data: actualizada,
+        });
     } catch (error) {
-        console.error(error);
-        res.status(400).json({ message: 'Error al actualizar dificultad' });
+        console.error('Error al actualizar dificultad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar dificultad',
+        });
     }
 };
 //delete
 export const deleteDificultad = async (req, res) => {
     try {
-        const eliminada = await Dificultad.findByIdAndDelete(req.params.id);
-        if (!eliminada) {
-        return res.status(404).json({ message: 'Dificultad no encontrada' });
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de dificultad incorrecto',
+        });
         }
-        res.json({ message: 'Dificultad eliminada' });
+        const eliminada = await Dificultad.findByIdAndDelete(id);
+        if (!eliminada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Dificultad eliminada',
+        });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al eliminar dificultad' });
+        console.error('Error al eliminar dificultad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar dificultad',
+        });
     }
 };
