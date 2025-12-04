@@ -5,7 +5,7 @@ import Usuario from "../models/Usuarios.js";
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
 //roles permitidos
-const ROLES_VALIDOS = ["admin", "profesor"];
+const ROLES_VALIDOS = ["administrador", "profesor"];
 //generamos el token con un rol 
 function generarToken(usuario) {
     return jwt.sign(
@@ -38,7 +38,7 @@ export const registrarUsuario = async (req, res) => {
         }
         correo = correo.trim().toLowerCase();
         if (!ROLES_VALIDOS.includes(rol)) {
-        return res.status(400).json({ message: "Rol inválido" });
+        return res.status(400).json({ message: "Rol invalido" });
         }
         const existente = await Usuario.findOne({ correo });
         if (existente) {
