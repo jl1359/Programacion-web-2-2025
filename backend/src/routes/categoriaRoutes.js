@@ -14,20 +14,19 @@ router.get('/:id', getCategoriaById);
 router.post(
     '/',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador'),
     createCategoria
 );
 router.put(
     '/:id',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador','profesor'),
     updateCategoria
 );
-//borrar solo para el administrador
 router.delete(
     '/:id',
     authMiddleware,
-    requireRole('admin'),
+    requireRole('administrador'),
     deleteCategoria
 );
 export default router;

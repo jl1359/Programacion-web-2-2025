@@ -3,6 +3,7 @@ import categoriaRoutes from './routes/categoriaRoutes.js';
 import dificultadRoutes from './routes/dificultadRoutes.js';
 import rangoEdadRoutes from './routes/rangoEdadRoutes.js';
 import registroRoutes from './routes/registroRoutes.js';
+import usuarioRoutes from './routes/usuarioRoutes.js'; 
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use('/api/inicio', registroRoutes);
 app.use('/api/categorias', categoriaRoutes);
 app.use('/api/dificultades', dificultadRoutes);
 app.use('/api/rangos-edad', rangoEdadRoutes);
+app.use('/api/usuarios', usuarioRoutes); 
 
 app.get('/', (req, res) => {
     res.send('api funcionando correctamente');

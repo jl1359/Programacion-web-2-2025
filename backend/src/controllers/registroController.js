@@ -1,95 +1,78 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import Usuario from "../models/Usuarios.js";
-
-const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
-const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "1h";
-//roles permitidos
-const ROLES_VALIDOS = ["administrador", "profesor"];
-//generamos el token con un rol 
-function generarToken(usuario) {
-    return jwt.sign(
-        {
-        id: usuario._id,
-        correo: usuario.correo,
-        rol: usuario.rol,
-        },
-        JWT_SECRET,
-        { expiresIn: JWT_EXPIRES_IN }
-    );
-}
-
-function mapUsuarioResponse(usuario) {
-    return {
-        id: usuario._id,
-        nombre: usuario.nombre,
-        correo: usuario.correo,
-        rol: usuario.rol,
-    };
-}
+import Usuario from '../models/Usuarios.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export const registrarUsuario = async (req, res) => {
     try {
-        let { nombre, correo, password, rol } = req.body;
-        if (!nombre || !correo || !password || !rol) {
-        return res
-            .status(400)
-            .json({ message: "Todos los campos son necesarios" });
+        const { nombre, correo, password } = req.body;
+        if (!nombre || !correo || !password) {
+        return res.status(400).json({ message: 'Faltan campos necesarios' });
         }
-        correo = correo.trim().toLowerCase();
-        if (!ROLES_VALIDOS.includes(rol)) {
-        return res.status(400).json({ message: "Rol invalido" });
+        const yaExiste = await Usuario.findOne({ correo });
+        if (yaExiste) {
+        return res.status(400).json({ message: 'El correo ya fue registrado' });
         }
-        const existente = await Usuario.findOne({ correo });
-        if (existente) {
-        return res
-            .status(409)
-            .json({ message: "Ya hay un usuario con ese correo" });
-        }
-        const hash = await bcrypt.hash(password, 10);
-        const usuario = await Usuario.create({
+        const hashedPassword = await bcrypt.hash(password, 10);
+        //por defecto el rol es estudiante
+        const nuevoUsuario = new Usuario({
         nombre,
         correo,
-        password: hash,
-        rol,
+        password: hashedPassword,
+        rol: 'estudiante',
         });
-        const token = generarToken(usuario);
-        return res.status(201).json({
-        message: "Usuario registrado",
-        usuario: mapUsuarioResponse(usuario),
+        await nuevoUsuario.save();
+        const token = jwt.sign(
+        { id: nuevoUsuario._id, correo: nuevoUsuario.correo, rol: nuevoUsuario.rol },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+        );
+        res.status(201).json({
+        message: 'Usuario registrado',
+        usuario: {
+            id: nuevoUsuario._id,
+            nombre: nuevoUsuario.nombre,
+            correo: nuevoUsuario.correo,
+            rol: nuevoUsuario.rol,
+        },
         token,
         });
     } catch (error) {
-        console.error("Error en registrarUsuario:", error);
-        return res.status(500).json({ message: "Error al registrar usuario" });
+        console.error('Error en registrarUsuario', error);
+        res.status(500).json({ message: 'Error en el servidor' });
     }
-};
+    };
 
-export const login = async (req, res) =>{
+    export const login = async (req, res) => {
     try {
-        let { correo, password } = req.body;
-        if (!correo || !password){
-        return res
-            .status(400)
-            .json({ message: "Correo y contraseña son necesarios" });
+        const { correo, password } = req.body;
+        if (!correo || !password) {
+        return res.status(400).json({ message: 'Faltan credenciales' });
         }
-        correo = correo.trim().toLowerCase();
-        const usuario = await Usuario.findOne({ correo }) ;
+        const usuario = await Usuario.findOne({ correo });
         if (!usuario) {
-        return res.status(401).json({ message: "Credenciales incorrectas" });
+        return res.status(400).json({ message: 'Credenciales incorrectas' });
         }
-        const coincide = await bcrypt.compare(password, usuario.password);
-        if (!coincide) {
-        return res.status(401).json({ message: "Credenciales incorrectas" });
+        const match = await bcrypt.compare(password, usuario.password);
+        if (!match) {
+        return res.status(400).json({ message: 'Credenciales incorrectas' });
         }
-        const token = generarToken(usuario);
-        return res.json({
-        message: "Inicio de sesion exitoso",
-        usuario: mapUsuarioResponse(usuario),
+        const token = jwt.sign(
+        { id: usuario._id, correo: usuario.correo, rol: usuario.rol },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+        );
+        res.json({
+        message: 'Login exitoso',
+        usuario: {
+            id: usuario._id,
+            nombre: usuario.nombre,
+            correo: usuario.correo,
+            rol: usuario.rol,
+        },
         token,
         });
     } catch (error) {
-        console.error("Error en login:", error);
-        return res.status(500).json({ message: "Error al iniciar sesion" });
+        console.error('Error en login', error);
+        res.status(500).json({ message: 'Error en el servidor' });
     }
 };
