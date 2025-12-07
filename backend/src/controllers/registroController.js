@@ -13,7 +13,7 @@ export const registrarUsuario = async (req, res) => {
         return res.status(400).json({ message: 'El correo ya fue registrado' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        //por defecto el rol es estudiante
+        //por defecto estudiante
         const nuevoUsuario = new Usuario({
         nombre,
         correo,
