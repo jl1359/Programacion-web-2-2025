@@ -89,7 +89,10 @@ export const cambiarRol = async (req, res) =>{
         res.status(500).json({ message: 'Error en el servidor' });
     }
 };
-export const hacerProfesor = async (req, res) =>{
+export const hacerProfesor = async (req, res) => {
+    if (!req.body) {
+        req.body = {};
+    }
     req.body.rol = 'profesor';
     return cambiarRol(req, res);
 };
