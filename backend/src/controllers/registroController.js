@@ -1,6 +1,7 @@
 import Usuario from '../models/Usuarios.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import validator from 'validator';
 import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/jwt.js';
 
 export const registrarUsuario = async (req, res) => {

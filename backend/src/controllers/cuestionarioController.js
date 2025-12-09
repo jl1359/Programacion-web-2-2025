@@ -12,7 +12,11 @@ export const crearCuestionario = async (req, res) => {
         rangoEdad,
         creador: req.user.id,
         });
-        res.status(201).json(nuevo);
+        res.status(201).json({
+        success: true,
+        message: 'Cuestionario creado',
+        data: nuevo
+});
     } catch (error) {
         console.error('Error al crear cuestionario', error);
         res.status(500).json({ message: 'Error al crear cuestionario' });
