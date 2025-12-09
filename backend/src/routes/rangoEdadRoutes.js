@@ -12,7 +12,6 @@ const router = express.Router();
 
 router.get('/', getRangosEdad);
 router.get('/:id', getRangoEdadById);
-
 router.post(
     '/',
     authMiddleware,

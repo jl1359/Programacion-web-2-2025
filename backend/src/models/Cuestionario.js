@@ -2,18 +2,16 @@ import mongoose from 'mongoose';
 
 const cuestionarioSchema = new mongoose.Schema(
     {
-        titulo: {
-        type: String,
-        required: true,
-        trim: true,
-        },
-        descripcion: {
-        type: String,
-        trim: true,
-        },
+        titulo: { type: String, required: true, trim: true },
+        descripcion: { type: String, trim: true },
+
         categoria: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categoria',
+        },
+        subcategoria: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SubCategoria',
         },
         dificultad: {
         type: mongoose.Schema.Types.ObjectId,

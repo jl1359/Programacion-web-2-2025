@@ -1,6 +1,7 @@
 import Usuario from '../models/Usuarios.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/jwt.js';
 
 export const registrarUsuario = async (req, res) => {
     try {
@@ -13,7 +14,6 @@ export const registrarUsuario = async (req, res) => {
         return res.status(400).json({ message: 'El correo ya fue registrado' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        //por defecto estudiante
         const nuevoUsuario = new Usuario({
         nombre,
         correo,
@@ -23,8 +23,8 @@ export const registrarUsuario = async (req, res) => {
         await nuevoUsuario.save();
         const token = jwt.sign(
         { id: nuevoUsuario._id, correo: nuevoUsuario.correo, rol: nuevoUsuario.rol },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
         );
         res.status(201).json({
         message: 'Usuario registrado',
@@ -40,9 +40,8 @@ export const registrarUsuario = async (req, res) => {
         console.error('Error en registrarUsuario', error);
         res.status(500).json({ message: 'Error en el servidor' });
     }
-    };
-
-    export const login = async (req, res) => {
+};
+export const login = async (req, res) => {
     try {
         const { correo, password } = req.body;
         if (!correo || !password) {
@@ -58,8 +57,8 @@ export const registrarUsuario = async (req, res) => {
         }
         const token = jwt.sign(
         { id: usuario._id, correo: usuario.correo, rol: usuario.rol },
-        process.env.JWT_SECRET,
-        { expiresIn: '1d' }
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
         );
         res.json({
         message: 'Login exitoso',

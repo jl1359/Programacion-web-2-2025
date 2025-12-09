@@ -2,11 +2,12 @@ import Cuestionario from '../models/Cuestionario.js';
 import Pregunta from '../models/Pregunta.js';
 export const crearCuestionario = async (req, res) => {
     try {
-        const { titulo, descripcion, categoria, dificultad, rangoEdad } = req.body;
+        const { titulo, descripcion, categoria, subcategoria, dificultad, rangoEdad } = req.body;
         const nuevo = await Cuestionario.create({
         titulo,
         descripcion,
         categoria,
+        subcategoria,
         dificultad,
         rangoEdad,
         creador: req.user.id,
@@ -21,6 +22,7 @@ export const listarMisCuestionarios = async (req, res) => {
     try {
         const lista = await Cuestionario.find({ creador: req.user.id })
         .populate('categoria')
+        .populate('subcategoria')
         .populate('dificultad')
         .populate('rangoEdad');
         res.json(lista);
@@ -33,6 +35,7 @@ export const listarCuestionariosPublicados = async (req, res) => {
     try {
         const lista = await Cuestionario.find({ estado: 'PUBLICADO' })
         .populate('categoria')
+        .populate('subcategoria')
         .populate('dificultad')
         .populate('rangoEdad')
         .populate('creador', 'nombre correo');
@@ -47,6 +50,7 @@ export const obtenerCuestionarioConPreguntas = async (req, res) => {
         const { id } = req.params;
         const cuestionario = await Cuestionario.findById(id)
         .populate('categoria')
+        .populate('subcategoria')
         .populate('dificultad')
         .populate('rangoEdad')
         .populate('creador', 'nombre correo');
@@ -76,7 +80,7 @@ export const actualizarCuestionario = async (req, res) => {
         ) {
         return res.status(403).json({ message: 'No puedes editar este cuestionario' });
         }
-        const campos = ['titulo', 'descripcion', 'categoria', 'dificultad', 'rangoEdad', 'estado'];
+        const campos = ['titulo', 'descripcion', 'categoria','subcategoria', 'dificultad', 'rangoEdad', 'estado'];
         campos.forEach((campo) => {
         if (req.body[campo] !== undefined) cuestionario[campo] = req.body[campo];
         });
