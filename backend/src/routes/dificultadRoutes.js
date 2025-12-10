@@ -16,22 +16,19 @@ router.get('/:id', getDificultadById);
 router.post(
     '/',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador'),
     createDificultad
 );
-
 router.put(
     '/:id',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador','profesor'),
     updateDificultad
 );
-
-//eliminar solo para el admin
 router.delete(
     '/:id',
     authMiddleware,
-    requireRole('admin'),
+    requireRole('administrador'),
     deleteDificultad
 );
 

@@ -12,26 +12,22 @@ const router = express.Router();
 
 router.get('/', getRangosEdad);
 router.get('/:id', getRangoEdadById);
-
 router.post(
     '/',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador'),
     createRangoEdad
 );
-
 router.put(
     '/:id',
     authMiddleware,
-    requireRole('admin', 'profesor'),
+    requireRole('administrador','profesor'),
     updateRangoEdad
 );
-
-//eliminar solo para el admin
 router.delete(
     '/:id',
     authMiddleware,
-    requireRole('admin'),
+    requireRole('administrador'),
     deleteRangoEdad
 );
 export default router;
