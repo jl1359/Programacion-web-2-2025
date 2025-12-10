@@ -6,7 +6,7 @@ export const validateObjectId = (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
         success: false,
-        message: 'ID no válido',
+        message: 'ID no valido',
         error: `El Id '${id}' no es valido`
         });
     }
