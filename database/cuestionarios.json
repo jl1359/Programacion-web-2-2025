@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "693764b10be2f710bb94c65d"
+  },
+  "titulo": "Cuestionario de Matematicas",
+  "descripcion": "Prueba de cuestionario",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  },
+  "subcategoria": {
+    "$oid": "693705e1b5c2af18a5b107a7"
+  },
+  "dificultad": {
+    "$oid": "691e94bbb75006283850c315"
+  },
+  "rangoEdad": {
+    "$oid": "691e95bab75006283850c327"
+  },
+  "creador": {
+    "$oid": "69317e62d116d0b30f0e6a06"
+  },
+  "estado": "PUBLICADO",
+  "createdAt": {
+    "$date": "2025-12-08T23:52:17.863Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-08T23:58:04.048Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693b3c4b58e9c9fa613d1e00"
+  },
+  "titulo": "Cuestionario de Matematicas",
+  "descripcion": "Cuestionario de prueba",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  },
+  "subcategoria": {
+    "$oid": "693705e1b5c2af18a5b107a7"
+  },
+  "dificultad": {
+    "$oid": "691e94bbb75006283850c315"
+  },
+  "rangoEdad": {
+    "$oid": "691e95bab75006283850c327"
+  },
+  "creador": {
+    "$oid": "69317e62d116d0b30f0e6a06"
+  },
+  "estado": "BORRADOR",
+  "createdAt": {
+    "$date": "2025-12-11T21:48:59.323Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-11T21:48:59.323Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693b3caf58e9c9fa613d1e03"
+  },
+  "titulo": "Cuestionario de Matematicas",
+  "descripcion": "Creado por un profesor xd",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  },
+  "subcategoria": {
+    "$oid": "6937069ab5c2af18a5b107ab"
+  },
+  "dificultad": {
+    "$oid": "691e94bbb75006283850c315"
+  },
+  "rangoEdad": {
+    "$oid": "691e95bab75006283850c327"
+  },
+  "creador": {
+    "$oid": "69362fa410269374c43dd587"
+  },
+  "estado": "BORRADOR",
+  "createdAt": {
+    "$date": "2025-12-11T21:50:39.585Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-11T21:50:39.585Z"
+  },
+  "__v": 0
+}]

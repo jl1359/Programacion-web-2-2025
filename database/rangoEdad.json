@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "691e95bab75006283850c327"
+  },
+  "nombre": "primaria inicial",
+  "edadMin": 6,
+  "edadMax": 10
+},
+{
+  "_id": {
+    "$oid": "691e9617b75006283850c329"
+  },
+  "nombre": "Pre colegio",
+  "edadMin": 10,
+  "edadMax": 12
+},
+{
+  "_id": {
+    "$oid": "691f04f9cd42686bb23d38d9"
+  },
+  "nombre": "Colegio",
+  "edadMin": 12,
+  "edadMax": 15
+},
+{
+  "_id": {
+    "$oid": "691f0539cd42686bb23d38db"
+  },
+  "nombre": "Preparatoria",
+  "edadMax": 18,
+  "edadMin": 15
+},
+{
+  "_id": {
+    "$oid": "6927ad3e9900dc7a5bf7eafd"
+  },
+  "nombre": "Universidad",
+  "edadMin": 18,
+  "edadMax": 30
+}]

@@ -20,3 +20,9 @@ Thumbs.db
 
 dist/
 coverage/
+
+# Certificados SSL (Seguridad)
+backend/src/certs/
+*.cert
+*.key
+*.pem
