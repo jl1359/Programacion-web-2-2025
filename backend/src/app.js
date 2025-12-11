@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 import categoriaRoutes from './routes/categoriaRoutes.js';
 import dificultadRoutes from './routes/dificultadRoutes.js';
@@ -56,5 +57,7 @@ app.use('/api/subcategorias', subCategoriaRoutes);
 app.get('/', (req, res) => {
     res.send('API funcionando correctamente');
 });
+
+app.use(errorHandler);
 
 export default app;
