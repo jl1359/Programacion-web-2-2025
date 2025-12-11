@@ -1,0 +1,337 @@
+[{
+  "_id": {
+    "$oid": "693705e1b5c2af18a5b107a7"
+  },
+  "nombre": "Aritmetica",
+  "descripcion": "Operaciones basicas",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  }
+},
+{
+  "_id": {
+    "$oid": "6937069ab5c2af18a5b107ab"
+  },
+  "nombre": "Algebra",
+  "descripcion": "Operaciones basicas",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  }
+},
+{
+  "_id": {
+    "$oid": "693706aab5c2af18a5b107ad"
+  },
+  "nombre": "Geometria",
+  "descripcion": "Operaciones basicas",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  }
+},
+{
+  "_id": {
+    "$oid": "693706c0b5c2af18a5b107af"
+  },
+  "nombre": "Trigonometria",
+  "descripcion": "Operaciones basicas",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  }
+},
+{
+  "_id": {
+    "$oid": "693706ebb5c2af18a5b107b1"
+  },
+  "nombre": "Estadistica",
+  "descripcion": "Operaciones basicas",
+  "categoria": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370882b5c2af18a5b107b3"
+  },
+  "nombre": "Lectura comprensiva",
+  "descripcion": "Analisis literario",
+  "categoria": {
+    "$oid": "6923df9a3c85f1bd46fc63df"
+  }
+},
+{
+  "_id": {
+    "$oid": "693708bcb5c2af18a5b107b5"
+  },
+  "nombre": "Gramatica",
+  "descripcion": "Analisis literario",
+  "categoria": {
+    "$oid": "6923df9a3c85f1bd46fc63df"
+  }
+},
+{
+  "_id": {
+    "$oid": "693708d4b5c2af18a5b107b7"
+  },
+  "nombre": "Ortografia",
+  "descripcion": "Analisis literario",
+  "categoria": {
+    "$oid": "6923df9a3c85f1bd46fc63df"
+  }
+},
+{
+  "_id": {
+    "$oid": "693708f1b5c2af18a5b107b9"
+  },
+  "nombre": "Literatura",
+  "descripcion": "Analisis literario",
+  "categoria": {
+    "$oid": "6923df9a3c85f1bd46fc63df"
+  }
+},
+{
+  "_id": {
+    "$oid": "6937093db5c2af18a5b107bb"
+  },
+  "nombre": "Historia Nacional",
+  "descripcion": "Historia",
+  "categoria": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370961b5c2af18a5b107bd"
+  },
+  "nombre": "Geografia",
+  "descripcion": "Historia",
+  "categoria": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  }
+},
+{
+  "_id": {
+    "$oid": "6937097fb5c2af18a5b107bf"
+  },
+  "nombre": "Historia Mundial",
+  "descripcion": "Historia",
+  "categoria": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  }
+},
+{
+  "_id": {
+    "$oid": "693709a3b5c2af18a5b107c1"
+  },
+  "nombre": "Civica",
+  "descripcion": "Historia",
+  "categoria": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  }
+},
+{
+  "_id": {
+    "$oid": "693709b9b5c2af18a5b107c3"
+  },
+  "nombre": "Sistema de Gobierno",
+  "descripcion": "Historia",
+  "categoria": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  }
+},
+{
+  "_id": {
+    "$oid": "693709feb5c2af18a5b107c5"
+  },
+  "nombre": "Vocabulario",
+  "descripcion": "Leguaje extranjera",
+  "categoria": {
+    "$oid": "6923e4083c85f1bd46fc63e5"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370a49b5c2af18a5b107c7"
+  },
+  "nombre": "Gramatica",
+  "descripcion": "Leguaje extranjera",
+  "categoria": {
+    "$oid": "6923e4083c85f1bd46fc63e5"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370a65b5c2af18a5b107c9"
+  },
+  "nombre": "Lectura y comprension",
+  "descripcion": "Leguaje extranjera",
+  "categoria": {
+    "$oid": "6923e4083c85f1bd46fc63e5"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370a7bb5c2af18a5b107cb"
+  },
+  "nombre": "Escritura",
+  "descripcion": "Leguaje extranjera",
+  "categoria": {
+    "$oid": "6923e4083c85f1bd46fc63e5"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370abcb5c2af18a5b107cd"
+  },
+  "nombre": "Cinematica",
+  "descripcion": "Temario de Fisica",
+  "categoria": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370aceb5c2af18a5b107cf"
+  },
+  "nombre": "Dinamica",
+  "descripcion": "Temario de Fisica",
+  "categoria": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370adfb5c2af18a5b107d1"
+  },
+  "nombre": "Energia",
+  "descripcion": "Temario de Fisica",
+  "categoria": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370af7b5c2af18a5b107d3"
+  },
+  "nombre": "Termodinamica",
+  "descripcion": "Temario de Fisica",
+  "categoria": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370b0cb5c2af18a5b107d5"
+  },
+  "nombre": "Electricidad",
+  "descripcion": "Temario de Fisica",
+  "categoria": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370b4eb5c2af18a5b107d8"
+  },
+  "nombre": "Materia",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370b6db5c2af18a5b107da"
+  },
+  "nombre": "Atomo",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370b7cb5c2af18a5b107dc"
+  },
+  "nombre": "Enlaces quimicos",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370b94b5c2af18a5b107de"
+  },
+  "nombre": "Reacciones quimicas",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370ba7b5c2af18a5b107e0"
+  },
+  "nombre": "Soluciones",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370bcdb5c2af18a5b107e2"
+  },
+  "nombre": "Sales y bases",
+  "descripcion": "Temario de Quimica",
+  "categoria": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370bf0b5c2af18a5b107e4"
+  },
+  "nombre": "Algoritmos",
+  "descripcion": "Temario de programacion",
+  "categoria": {
+    "$oid": "6927adca9900dc7a5bf7eafe"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370c10b5c2af18a5b107e6"
+  },
+  "nombre": "Programacion Orientada a Objetos",
+  "descripcion": "Temario de programacion",
+  "categoria": {
+    "$oid": "6927adca9900dc7a5bf7eafe"
+  }
+},
+{
+  "_id": {
+    "$oid": "69370c28b5c2af18a5b107e8"
+  },
+  "nombre": "Estructura de datos",
+  "descripcion": "Temario de programacion",
+  "categoria": {
+    "$oid": "6927adca9900dc7a5bf7eafe"
+  }
+},
+{
+  "_id": {
+    "$oid": "693b3bce58e9c9fa613d1dfd"
+  },
+  "nombre": "Tablas de verdad",
+  "descripcion": "tablas de verdad",
+  "categoria": {
+    "$oid": "693b354695d328f51576d1dc"
+  },
+  "createdAt": {
+    "$date": "2025-12-11T21:46:54.878Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-11T21:46:54.878Z"
+  },
+  "__v": 0
+}]

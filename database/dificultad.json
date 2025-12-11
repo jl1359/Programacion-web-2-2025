@@ -1,0 +1,32 @@
+[{
+  "_id": {
+    "$oid": "691e94bbb75006283850c315"
+  },
+  "nombre": "Facil",
+  "descripcion": "Preguntas de nivel basico",
+  "orden": 1
+},
+{
+  "_id": {
+    "$oid": "691e94d9b75006283850c317"
+  },
+  "nombre": "Medio",
+  "descripcion": "Preguntas de nivel intermedio",
+  "orden": 2
+},
+{
+  "_id": {
+    "$oid": "691e951eb75006283850c31d"
+  },
+  "nombre": "Dificil",
+  "descripcion": "Preguntas nivel avanzado",
+  "orden": 3
+},
+{
+  "_id": {
+    "$oid": "6927ad189900dc7a5bf7eafc"
+  },
+  "nombre": "Muy dificil",
+  "descripcion": "Preguntas de nivel experto",
+  "orden": 4
+}]

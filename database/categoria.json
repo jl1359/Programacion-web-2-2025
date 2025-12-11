@@ -1,0 +1,64 @@
+[{
+  "_id": {
+    "$oid": "6923d59a3c85f1bd46fc63dc"
+  },
+  "nombre": "Matematicas",
+  "descripcion": "Materia de matematicas"
+},
+{
+  "_id": {
+    "$oid": "6923df9a3c85f1bd46fc63df"
+  },
+  "nombre": "Lenguaje",
+  "descripcion": "Materia de lenguaje y literatura"
+},
+{
+  "_id": {
+    "$oid": "6923e0bf3c85f1bd46fc63e1"
+  },
+  "nombre": "Ciencias Naturales",
+  "descripcion": "Materia de ciencias de la naturaleza y biologia"
+},
+{
+  "_id": {
+    "$oid": "6923e3543c85f1bd46fc63e3"
+  },
+  "nombre": "Ciencias Sociales",
+  "descripcion": "Materia de ciencias sociales e historia"
+},
+{
+  "_id": {
+    "$oid": "6923e4083c85f1bd46fc63e5"
+  },
+  "nombre": "Ingles",
+  "descripcion": "Lenguaje extranjera"
+},
+{
+  "_id": {
+    "$oid": "6923e5073c85f1bd46fc63e7"
+  },
+  "nombre": "Fisica",
+  "descripcion": "Materia de fisica"
+},
+{
+  "_id": {
+    "$oid": "6923e5c43c85f1bd46fc63e9"
+  },
+  "nombre": "Quimica",
+  "descripcion": "Materia de Quimica"
+},
+{
+  "_id": {
+    "$oid": "6927adca9900dc7a5bf7eafe"
+  },
+  "nombre": "Programacion",
+  "descripcion": "Conceptos basicos de programacion y algoritmos"
+},
+{
+  "_id": {
+    "$oid": "693b354695d328f51576d1dc"
+  },
+  "nombre": "Logica",
+  "descripcion": "Problemas de razonamiento",
+  "__v": 0
+}]

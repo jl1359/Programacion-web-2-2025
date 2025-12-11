@@ -1,0 +1,96 @@
+[{
+  "_id": {
+    "$oid": "69317e62d116d0b30f0e6a06"
+  },
+  "nombre": "Administrador 2",
+  "correo": "jose1359@gmail.com",
+  "password": "$2b$10$LnElGHTiO/Ee1S4rHzxvNOjLLmM7WUT51xuWRG80/7vqZjf0hOLpK",
+  "rol": "administrador",
+  "createdAt": {
+    "$date": "2025-12-04T12:28:18.700Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-04T12:28:18.700Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6935e1255c94cc6c735ca782"
+  },
+  "nombre": "Estudiante",
+  "correo": "estudiante1@gmail.com",
+  "password": "$2b$10$daOIi0VPiXAmbJq9ku.OK.WjD4vCrsKuk52aooBxN2ZOj.jztmvNW",
+  "rol": "estudiante",
+  "createdAt": {
+    "$date": "2025-12-07T20:18:45.413Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-07T20:18:45.413Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69362fa410269374c43dd587"
+  },
+  "nombre": "Estudiante2",
+  "correo": "estudiante2@gmail.com",
+  "password": "$2b$10$NzjDxSI9NiadwhXpCBx52.VKgja3OVWtQOKpc0aQg6kC4uew0sSXG",
+  "rol": "profesor",
+  "createdAt": {
+    "$date": "2025-12-08T01:53:40.717Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-08T02:03:12.430Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "69373a087de4e4cb2d08164b"
+  },
+  "nombre": "jose",
+  "correo": "jose123@gmail.com",
+  "password": "$2b$10$dluttnI4er0u9NO9jwKU2OFwi3gpuNtGcl60QvWAneMcMkV2iCJry",
+  "rol": "administrador",
+  "createdAt": {
+    "$date": "2025-12-08T20:50:16.552Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-08T21:02:46.315Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "693789479cb2be7fad6912b8"
+  },
+  "nombre": "jos",
+  "correo": "jose13593380@gmail.com",
+  "password": "$2b$10$OeimXGtlzNoTrNta/DOfWu7WxK4feuZ5nKnV8NI8vnaYon/8YqQFy",
+  "rol": "estudiante",
+  "createdAt": {
+    "$date": "2025-12-09T02:28:23.890Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-09T02:28:23.890Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6939c06abbd8374983721885"
+  },
+  "nombre": "jose1",
+  "correo": "jose1533336@gmail.com",
+  "password": "$2b$10$ac8YBsGAd/z/qx0Nh.n/u.o7ymtJUNgxEIoKLY/OqNU3m9aKiPMt.",
+  "rol": "estudiante",
+  "createdAt": {
+    "$date": "2025-12-10T18:48:10.902Z"
+  },
+  "updatedAt": {
+    "$date": "2025-12-10T18:48:10.902Z"
+  },
+  "__v": 0
+}]

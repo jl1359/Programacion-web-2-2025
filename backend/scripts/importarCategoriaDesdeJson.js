@@ -32,7 +32,6 @@ async function main() {
             {
             nombre: cat.nombre,
             descripcion: cat.descripcion,
-            rangos: cat.rangos || [],
             },
             { new: true, upsert: true }
         );
@@ -53,11 +52,11 @@ async function main() {
             }
         }
         }
-        console.log('Importación de categorías y subcategorías');
+        console.log('Importacion de categorias y subcategorias');
         await mongoose.disconnect();
         process.exit(0);
     } catch (err) {
-        console.error('Error en importación:', err);
+        console.error('Error en importacion:', err);
         process.exit(1);
     }
 }
