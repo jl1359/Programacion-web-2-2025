@@ -1,0 +1,1931 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.gitignore
+backend/package.json
+backend/scripts/importarCategoriaDesdeJson.js
+backend/src/app.js
+backend/src/certs/server.cert
+backend/src/certs/server.key
+backend/src/config/db.js
+backend/src/config/jwt.js
+backend/src/controllers/categoriaController.js
+backend/src/controllers/dificultadController.js
+backend/src/controllers/rangoEdadController.js
+backend/src/controllers/registroController.js
+backend/src/controllers/subCategoriaController.js
+backend/src/controllers/usuarioController.js
+backend/src/middlewares/errorHandler.js
+backend/src/middlewares/registro.js
+backend/src/middlewares/validateObjectId.js
+backend/src/models/Categoria.js
+backend/src/models/Dificultad.js
+backend/src/models/RangoEdad.js
+backend/src/models/Subcategoria.js
+backend/src/models/Usuarios.js
+backend/src/routes/categoriaRoutes.js
+backend/src/routes/dificultadRoutes.js
+backend/src/routes/rangoEdadRoutes.js
+backend/src/routes/registroRoutes.js
+backend/src/routes/subCategoriaRoutes.js
+backend/src/routes/usuarioRoutes.js
+backend/src/server.js
+frontend/css/styles.css
+frontend/index.html
+frontend/js/main.js
+frontend/perfil-admin.html
+frontend/perfil-profesor.html
+frontend/perfil.html
+frontend/registro.html
+generar-cert.js
+package.json
+README.md
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path="backend/src/models/Subcategoria.js">
+import mongoose from 'mongoose';
+
+const subCategoriaSchema = new mongoose.Schema(
+    {
+        nombre: { type: String, required: true, trim: true },
+        descripcion: { type: String, trim: true },
+        categoria: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Categoria',
+        required: true,
+        },
+    },
+    {
+        collection: 'subCategoria',
+        timestamps: true,
+    }
+);
+export default mongoose.model('SubCategoria', subCategoriaSchema);
+</file>
+
+<file path="frontend/css/styles.css">
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+h1 { margin: 0; color: #333; }
+h2 { margin-bottom: 1.5rem; color: #555; font-size: 1.2rem; }
+#subtitulo { color: #777; margin-top: 5px; font-size: 0.9rem; }
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+.btn-primary { background-color: #007bff; color: white; }
+.btn-primary:hover { background-color: #0056b3; }
+
+.btn-secondary { background-color: #28a745; color: white; }
+.btn-secondary:hover { background-color: #218838; }
+
+.switch-text {
+    margin-top: 15px;
+    font-size: 0.85rem;
+}
+
+a { color: #007bff; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Utilidades */
+.hidden { display: none; }
+
+.mensaje-box {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+</file>
+
+<file path="frontend/index.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Bienvenido</h1>
+            <p id="subtitulo">Ingresa a tu cuenta</p>
+        </header>
+
+        <div id="login-box" class="form-box">
+            <form id="form-login">
+                <div class="input-group">
+                    <label for="login-email">Correo Electronico</label>
+                    <input type="email" id="login-email" required placeholder="ejemplo@correo.com">
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="********">
+                </div>
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+            
+            <p class="switch-text">
+                ¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a>
+            </p>
+        </div>
+
+        <div id="mensaje" class="mensaje-box hidden"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+
+    <script>
+        (function() {
+            const token = localStorage.getItem('token');
+            const usuarioGuardado = localStorage.getItem('usuario');
+
+            if (token && usuarioGuardado) {
+                const usuario = JSON.parse(usuarioGuardado);
+
+                if (rol === 'administrador') window.location.href = 'perfil-admin.html';
+                else if (rol === 'profesor') window.location.href = 'perfil-profesor.html';
+                else if (rol === 'estudiante') window.location.href = 'perfil.html';
+            }
+        })();
+    </script>
+</body>
+</html>
+</file>
+
+<file path="frontend/js/main.js">
+const API_URL = 'https://localhost:5000/api/inicio';
+const mensajeDiv = document.getElementById('mensaje');
+
+function mostrarMensaje(texto, tipo) {
+    if (!mensajeDiv) return;
+    
+    if (!texto) {
+        mensajeDiv.classList.add('hidden');
+        mensajeDiv.className = 'mensaje-box hidden';
+        return;
+    }
+    mensajeDiv.textContent = texto;
+    mensajeDiv.className = `mensaje-box ${tipo}`;
+    mensajeDiv.classList.remove('hidden');
+}
+const formLogin = document.getElementById('form-login');
+
+if (formLogin) {
+    formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        mostrarMensaje('Procesando', 'success');
+
+        const correo = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            const response = await fetch(`${API_URL}/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ correo, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                mostrarMensaje('¡Login exitoso!', 'success');
+                
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                
+                console.log('Usuario:', data.usuario);
+                alert(`Bienvenido de nuevo, ${data.usuario.nombre}`);
+            } else {
+                mostrarMensaje(data.message || 'Error al iniciar sesion', 'error');
+            }
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje('Error de conexion con el servidor (Revisa si aceptaste el certificado SSL)', 'error');
+        }
+    });
+}
+const formRegister = document.getElementById('form-register');
+
+if (formRegister) {
+    formRegister.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        mostrarMensaje('Creando cuenta...', 'success');
+
+        const nombre = document.getElementById('reg-nombre').value;
+        const correo = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+
+        try {
+            const response = await fetch(`${API_URL}/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nombre, correo, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok || response.status === 201) {
+                mostrarMensaje('¡Cuenta creada', 'success');
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('usuario', JSON.stringify(data.usuario));
+
+                setTimeout(() => {
+                    alert('Registro completado. Redirigiendo al inicio');
+                    window.location.href = 'index.html'; 
+                }, 1500);
+
+            } else {
+                mostrarMensaje(data.message || 'Error al registrarse', 'error');
+            }
+        } catch (error) {
+            console.error(error);
+            mostrarMensaje('Error de conexion con el servidor', 'error');
+        }
+    });
+}
+if (formLogin) {
+    formLogin.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`${API_URL}/login`, { /* ... */ });
+            const data = await response.json();
+
+            if (response.ok) {
+                mostrarMensaje('¡Login exitoso!', 'success');
+                
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('usuario', JSON.stringify(data.usuario));
+                
+                const rol = data.usuario.rol;
+
+                setTimeout(() => {
+                    if (rol === 'administrador') {
+                        window.location.href = 'perfil-admin.html';
+                    } else if (rol === 'profesor') {
+                        window.location.href = 'perfil-profesor.html';
+                    } else {
+                        window.location.href = 'perfil.html';
+                    }
+                }, 1000);
+
+            } else {
+                mostrarMensaje(data.message, 'error');
+            }
+        } catch (error) {
+        }
+    });
+}
+
+function logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('usuario');
+    window.location.href = 'index.html';
+}
+function verificarAcceso(rolRequerido) {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    const token = localStorage.getItem('token');
+
+    if (!usuarioGuardado || !token) {
+        alert('Debes iniciar sesion primero');
+        window.location.href = 'index.html';
+        return;
+    }
+
+    const usuario = JSON.parse(usuarioGuardado);
+
+    if (rolRequerido && usuario.rol !== rolRequerido && usuario.rol !== 'administrador') {
+        alert('No tienes permiso para ver esta pagina');
+        if (usuario.rol === 'profesor') window.location.href = 'perfil-profesor.html';
+        else window.location.href = 'perfil.html';
+    }
+}
+</file>
+
+<file path="frontend/perfil-admin.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administrador</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Administrador</h1>
+        <p>Bienvenido, Jefe. Aquí puedes gestionar usuarios y categorias.</p>
+        <div id="admin-content">
+            <button class="btn-primary" onclick="alert('Crear categoría')">Crear Categoría</button>
+            <button class="btn-secondary" onclick="logout()">Cerrar Sesión</button>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script>verificarAcceso('administrador');</script>
+</body>
+</html>
+</file>
+
+<file path="frontend/perfil-profesor.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Profesor</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Profesor 🎓</h1>
+        <p>Bienvenido aquí puedes gestionar tus clases y dificultades.</p>
+        <button class="btn-secondary" onclick="logout()">Cerrar Sesion</button>
+    </div>
+    <script src="js/main.js"></script>
+    <script>verificarAcceso('profesor');</script>
+</body>
+</html>
+</file>
+
+<file path="frontend/perfil.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Estudiante</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Panel de Estudiante </h1>
+        <p>Bienvenido aquí puedes ver tus cursos y practicar.</p>
+        <button class="btn-secondary" onclick="logout()">Cerrar Sesion</button>
+    </div>
+    <script src="js/main.js"></script>
+    <script>verificarAcceso('estudiante');</script>
+</body>
+</html>
+</file>
+
+<file path="frontend/registro.html">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cuenta - Proyecto Web 2</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Crear Cuenta</h1>
+            <p id="subtitulo">Únete a nosotros</p>
+        </header>
+
+        <div id="register-box" class="form-box">
+            <form id="form-register">
+                <div class="input-group">
+                    <label for="reg-nombre">Nombre Completo</label>
+                    <input type="text" id="reg-nombre" required placeholder="Tu nombre">
+                </div>
+                <div class="input-group">
+                    <label for="reg-email">Correo Electronico</label>
+                    <input type="email" id="reg-email" required placeholder="ejemplo@correo.com">
+                </div>
+                <div class="input-group">
+                    <label for="reg-password">Contraseña</label>
+                    <input type="password" id="reg-password" required placeholder="Crea una contraseña">
+                </div>
+                <button type="submit" class="btn-secondary">Registrarse</button>
+            </form>
+
+            <p class="switch-text">
+                ¿Ya tienes cuenta? <a href="index.html">Inicia sesion</a>
+            </p>
+        </div>
+
+        <div id="mensaje" class="mensaje-box hidden"></div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
+</file>
+
+<file path="backend/src/certs/server.cert">
+-----BEGIN CERTIFICATE-----
+MIIDBjCCAe6gAwIBAgIJeqe50qEBNwTSMA0GCSqGSIb3DQEBCwUAMBQxEjAQBgNV
+BAMTCWxvY2FsaG9zdDAeFw0yNTEyMTAyMDM5NTZaFw0yNjEyMTAyMDM5NTZaMBQx
+EjAQBgNVBAMTCWxvY2FsaG9zdDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+ggEBAK2NmE5p9fSPSrAh9uSvDzL73+ee8IeO5stcCbYRcgubTXXm+RZmYRe7AJzW
+PJ5LVum8mZv6OWtmLvSXKyuzI6lF5B8aJ2lw5ofw7ba5F4I/JjWTgkKx3a6c7JVD
+bj37KhAYZLWFGU7cvB5/raJ8sZAan+r9fkEZ8jYrEQi/vFaFardBniyf4NQE1cvz
+/+ybrmzOwNaTup8/WCPbU1YODVODUvCX+6ILpMR3AbDWiQ8kAPTSnYnTLQs0zioX
+kIyL1PVZAxCrXMHsX+bIiOr5mql7uWZVQ6w+B99DtmtEebWxvCQQ5UfNw8H9IshL
+9rtcYCsoCa7s2vd289kkYwnZQNUCAwEAAaNbMFkwDAYDVR0TAQH/BAIwADAOBgNV
+HQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMBoGA1Ud
+EQQTMBGCCWxvY2FsaG9zdIcEfwAAATANBgkqhkiG9w0BAQsFAAOCAQEABui47ltS
+EF317vsk71Vh/51hQi9YVrRz80CcgiAvehn7xm18CrYGKsYoX2tNmE3WZcJdS8Eo
+Cw8fCOsEQDC//h1Tosf1zSeEzUKvvw2jm92tiRnoNoj0TRGsZW1y8ayt0VX00FJg
+xKUiEUiizJ8c4gLm7AmY8rGxplkV0MjGAOS7jx622OwQ54rAuM4KDKPeqQ3TTKoI
+F16zP4GQa6RT46Xi9HjDVQXj9MVDwcEdzoYJ3UwRvi46u3eSoSi52f9WFP43oQp8
+zGK9yAH5pAFq5TlWECHBzVXXIEYr3oeIXD15lcp9a+Vge5ZICFGH7ZqrtqCfcelu
+wdVpb7njcUsWFw==
+-----END CERTIFICATE-----
+</file>
+
+<file path="backend/src/controllers/subCategoriaController.js">
+import mongoose from 'mongoose';
+import SubCategoria from '../models/Subcategoria.js';
+
+export const getSubCategorias = async (req, res) => {
+    try {
+        const { categoria } = req.query;
+        const filtro = categoria ? { categoria } : {};
+        const subcats = await SubCategoria.find(filtro)
+        .populate('categoria', 'nombre')
+        .lean();
+        return res.status(200).json({
+        ok: true,
+        message: 'Subcategorías obtenidas',
+        data: subcats,
+        });
+    } catch (error) {
+        console.error('Error al listar subcategorias:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al listar subcategorias',
+        });
+    }
+};
+export const getSubCategoriaById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de subcategoria incorrecto',
+        });
+        }
+        const subcat = await SubCategoria.findById(id).populate('categoria', 'nombre');
+        if (!subcat) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Subcategoria no encontrada',
+        });
+        }
+        return res.status(200).json({
+        ok: true,
+        message: 'Subcategoria obtenida',
+        data: subcat,
+        });
+    } catch (error) {
+        console.error('Error al obtener subcategoria:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al obtener subcategoria',
+        });
+    }
+    };
+    export const createSubCategoria = async (req, res) => {
+    try {
+        const nueva = await SubCategoria.create(req.body);
+        return res.status(201).json({
+        ok: true,
+        message: 'Subcategoria creada',
+        data: nueva,
+        });
+    } catch (error) {
+        console.error('Error al crear subcategoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear subcategoria',
+        });
+    }
+};
+export const updateSubCategoria = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de subcategoria incorrecto',
+        });
+        }
+        const actualizada = await SubCategoria.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        });
+        if (!actualizada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Subcategoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Subcategoria actualizada',
+        data: actualizada,
+        });
+    } catch (error) {
+        console.error('Error al actualizar subcategoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar subcategoria',
+        });
+    }
+};
+export const deleteSubCategoria = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de subcategoria incorrecto',
+        });
+        }
+        const eliminada = await SubCategoria.findByIdAndDelete(id);
+        if (!eliminada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Subcategoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Subcategoria eliminada',
+        });
+    } catch (error) {
+        console.error('Error al eliminar subcategoria:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar subcategoria',
+        });
+    }
+};
+</file>
+
+<file path="backend/src/middlewares/errorHandler.js">
+export const errorHandler = (err, req, res, next) => {
+    console.error('Error:', err.message);
+    console.error('Stack:', err.stack);
+    if (err.name === 'MongoError' || err.name === 'MongoServerError') {
+        return res.status(500).json({
+        success: false,
+        message: 'Error de base de datos',
+        error: process.env.NODE_ENV === 'development' ? err.message : undefined
+        });
+    }
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({
+        success: false,
+        message: 'Error de validacion',
+        errors: Object.values(err.errors).map(e => e.message)
+        });
+    }
+    res.status(err.status || 500).json({
+        success: false,
+        message: err.message || 'Errordel servidor',
+        ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+    });
+};
+</file>
+
+<file path="backend/src/routes/subCategoriaRoutes.js">
+import express from 'express';
+import {
+    getSubCategorias,
+    getSubCategoriaById,
+    createSubCategoria,
+    updateSubCategoria,
+    deleteSubCategoria,
+} from '../controllers/subCategoriaController.js';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+
+const router = express.Router();
+
+router.get('/', getSubCategorias);
+router.get('/:id', getSubCategoriaById);
+
+router.post(
+    '/',
+    authMiddleware,
+    requireRole('administrador', 'profesor'),
+    createSubCategoria
+);
+router.put(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador', 'profesor'),
+    updateSubCategoria
+);
+router.delete(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador'),
+    deleteSubCategoria
+);
+
+export default router;
+</file>
+
+<file path="generar-cert.js">
+import selfsigned from 'selfsigned';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function generarCertificados() {
+    const attrs = [{ name: 'commonName', value: 'localhost' }];
+    const options = { days: 365, keySize: 2048, algorithm: 'sha256' };
+
+    console.log('Generando llaves esto puede tardar unos segundos');
+
+    try {
+        const pems = await selfsigned.generate(attrs, options);
+
+        console.log('Inspeccionando resultado');
+        console.log('Claves encontradas:', Object.keys(pems));
+
+        const certPath = path.join(__dirname, 'backend', 'src', 'certs');
+
+        if (!fs.existsSync(certPath)){
+            console.log(`Creando carpeta: ${certPath}`);
+            fs.mkdirSync(certPath, { recursive: true });
+        }
+
+        fs.writeFileSync(path.join(certPath, 'server.cert'), pems.cert);
+        fs.writeFileSync(path.join(certPath, 'server.key'), pems.private);
+
+        console.log(' Certificados creados correctamente en backend/src/certs/');
+
+    } catch (error) {
+        console.error('Error durante la generacion:', error);
+    }
+}
+generarCertificados();
+</file>
+
+<file path="README.md">
+# Programacion-web-2-2025
+Segundo proyecto de la materia de programación web
+</file>
+
+<file path="backend/scripts/importarCategoriaDesdeJson.js">
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import Categoria from '../src/models/Categoria.js';
+import SubCategoria from '../src/models/Subcategoria.js';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function main() {
+    try {
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('Mongo conectado');
+        const jsonPath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'database',
+        'Proyecto',
+        'Proyecto.categoria.json'
+        );
+        const raw = await fs.readFile(jsonPath, 'utf8');
+        const categoriasJson = JSON.parse(raw);
+
+        for (const cat of categoriasJson) {
+        const categoriaDoc = await Categoria.findOneAndUpdate(
+            { nombre: cat.nombre },
+            {
+            nombre: cat.nombre,
+            descripcion: cat.descripcion,
+            rangos: cat.rangos || [],
+            },
+            { new: true, upsert: true }
+        );
+        if (Array.isArray(cat.subcategorias)) {
+            for (const sc of cat.subcategorias) {
+            await SubCategoria.findOneAndUpdate(
+                {
+                nombre: sc.nombre,
+                categoria: categoriaDoc._id,
+                },
+                {
+                nombre: sc.nombre,
+                descripcion: sc.descripcion || '',
+                categoria: categoriaDoc._id,
+                },
+                { upsert: true }
+            );
+            }
+        }
+        }
+        console.log('Importación de categorías y subcategorías');
+        await mongoose.disconnect();
+        process.exit(0);
+    } catch (err) {
+        console.error('Error en importación:', err);
+        process.exit(1);
+    }
+}
+main();
+</file>
+
+<file path="backend/src/config/jwt.js">
+if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET debe estar configurado');
+}
+export const JWT_SECRET = process.env.JWT_SECRET || 'dev_secret';
+export const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '1h';
+</file>
+
+<file path="backend/src/middlewares/validateObjectId.js">
+import mongoose from 'mongoose';
+
+export const validateObjectId = (req, res, next) => {
+    const { id } = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+        success: false,
+        message: 'ID no valido',
+        error: `El Id '${id}' no es valido`
+        });
+    }
+    
+    next();
+};
+</file>
+
+<file path="backend/src/routes/registroRoutes.js">
+import express from 'express';
+import { registrarUsuario, login } from '../controllers/registroController.js';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+
+const router = express.Router();
+//registro de usuarios
+router.post('/register', registrarUsuario);
+//login para usuarios
+router.post('/login', login);
+router.get(
+    '/me/admin-only',
+    authMiddleware,
+    requireRole('administrador'),
+    (req, res) => {
+        res.json({ message: 'Hola administrador', user: req.user });
+    }
+);
+
+export default router;
+</file>
+
+<file path="backend/src/routes/usuarioRoutes.js">
+import { Router } from 'express';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+import {
+    listarUsuarios,
+    obtenerUsuarioPorId,
+    obtenerPerfilActual,
+    cambiarRol,
+    hacerProfesor,
+} from '../controllers/usuarioController.js';
+const router = Router();
+//perfil actual del usuario
+router.get(
+    '/me',
+    authMiddleware,
+    obtenerPerfilActual
+);
+//lista de usuarios
+router.get(
+    '/',
+    authMiddleware,
+    requireRole('administrador'),
+    listarUsuarios
+);
+// Obtener usuario por id
+router.get(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador'),
+    obtenerUsuarioPorId
+);
+// cambiar rol de usuario
+router.put(
+    '/:id/rol',
+    authMiddleware,
+    requireRole('administrador'),
+    cambiarRol
+);
+//hacer profesor
+router.put(
+    '/:id/hacer-profesor',
+    authMiddleware,
+    requireRole('administrador'),
+    hacerProfesor
+);
+export default router;
+</file>
+
+<file path="package.json">
+{
+  "dependencies": {
+    "selfsigned": "^5.2.0"
+  }
+}
+</file>
+
+<file path="backend/src/config/db.js">
+import mongoose from "mongoose";
+export const connectDB = async () => {
+    try {
+        const conn = await mongoose.connect(process.env.MONGO_URI);
+        console.log("MongoDB Conectado correctamente:", conn.connection.host);
+    } catch (error) {
+        console.error("MongoDB fallo de conexion:", error.message);
+        process.exit(1);
+    }
+};
+</file>
+
+<file path="backend/src/controllers/usuarioController.js">
+import mongoose from 'mongoose';
+import Usuario from '../models/Usuarios.js';
+const ROLES_VALIDOS = ['administrador', 'profesor', 'estudiante'];
+
+export const listarUsuarios = async (req, res) =>{
+    try {
+        const { rol } = req.query;
+        const filtro = rol ? { rol } : {};
+        const usuarios = await Usuario.find(filtro).select('-password');
+        res.json({
+        total: usuarios.length,
+        usuarios,
+        });
+    } catch (error) {
+        console.error('Error en listarUsuarios:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+export const obtenerUsuarioPorId = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res
+            .status(400)
+            .json({ message: 'Id de usuario incorrecto' });
+        }
+        const usuario = await Usuario.findById(id).select('-password');
+
+        if (!usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.json(usuario);
+    } catch (error) {
+        console.error('Error en obtenerUsuarioPorId:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+export const obtenerPerfilActual = async (req, res) =>{
+    try {
+        const { id } = req.user;
+        const usuario = await Usuario.findById(id).select('-password');
+        if (!usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        res.json(usuario);
+    } catch (error) {
+        console.error('Error en obtenerPerfilActual:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+export const cambiarRol = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        const { rol } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res
+            .status(400)
+            .json({ message: 'Id de usuario incorrecto' });
+        }
+        if (!rol) {
+        return res.status(400).json({ message: 'El nuevo rol es obligatorio' });
+        }
+        if (!ROLES_VALIDOS.includes(rol)) {
+        return res.status(400).json({
+            message: `Rol no válido. Roles permitidos: ${ROLES_VALIDOS.join(', ')}`,
+        });
+        }
+        const usuario = await Usuario.findById(id);
+        if (!usuario) {
+        return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+        if (usuario.rol === rol) {
+        return res.status(400).json({ message: `El usuario ya tiene el rol ${rol}` });
+        }
+        usuario.rol = rol;
+        await usuario.save();
+        res.json({
+        message: `Rol actualizado a ${rol}`,
+        usuario: {
+            id: usuario._id,
+            nombre: usuario.nombre,
+            correo: usuario.correo,
+            rol: usuario.rol,
+        },
+        });
+    } catch (error) {
+        console.error('Error en cambiarRol:', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+export const hacerProfesor = async (req, res) => {
+    if (!req.body) {
+        req.body = {};
+    }
+    req.body.rol = 'profesor';
+    return cambiarRol(req, res);
+};
+</file>
+
+<file path="backend/src/models/Dificultad.js">
+import mongoose from 'mongoose';
+const dificultadSchema = new mongoose.Schema({
+    nombre: { type: String, required: true },
+    descripcion: { type: String },
+    orden: { type: Number }
+}, { collection: 'dificultad' });
+export default mongoose.model('Dificultad', dificultadSchema);
+</file>
+
+<file path="backend/src/models/RangoEdad.js">
+import mongoose from 'mongoose';
+const rangoEdadSchema = new mongoose.Schema({
+    nombre: { type: String, required: true },
+    edadMin: { type: Number },
+    edadMax: { type: Number }
+}, { collection: 'rangoEdad' });
+export default mongoose.model('RangoEdad', rangoEdadSchema);
+</file>
+
+<file path="backend/src/controllers/categoriaController.js">
+import Categoria from '../models/Categoria.js';
+import mongoose from 'mongoose';
+//get
+export const getCategorias = async (req, res) => {
+    try {
+        const categorias = await Categoria.find()
+        .populate('rangos.rangoEdadId')
+        .populate('rangos.dificultades')
+        .lean();
+        return res.status(200).json({
+        ok: true,
+        message: 'Categorias obtenidas',
+        data: categorias,
+        });
+    } catch (error) {
+        console.error('Error al listar categorias:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al listar categorias',
+        });
+    }
+};
+//get
+export const getCategoriaById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'id de categoria',
+        });
+        }
+        const categoria = await Categoria.findById(id)
+        .populate('rangos.rangoEdadId')
+        .populate('rangos.dificultades');
+        if (!categoria) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Categoria no encontrada',
+        });
+        }
+        return res.status(200).json({
+        ok: true,
+        message: 'Categoria obtenida',
+        data: categoria,
+        });
+    } catch (error) {
+        console.error('Error al obtener categoria:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al obtener categoria',
+        });
+    }
+};
+//create
+export const createCategoria = async (req, res) => {
+    try {
+        const nueva = await Categoria.create(req.body);
+        return res.status(201).json({
+        ok: true,
+        message: 'Categoria creada',
+        data: nueva,
+        });
+    } catch (error) {
+        console.error('Error al crear categoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear categoria',
+        });
+    }
+};
+//update
+export const updateCategoria = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de categoria incorrecto',
+        });
+        }
+        const actualizada = await Categoria.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        });
+        if (!actualizada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Categoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Categoria actualizada',
+        data: actualizada,
+        });
+    } catch (error) {
+        console.error('Error al actualizar categoria:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar categoria',
+        });
+    }
+};
+//delete
+export const deleteCategoria = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de categoria incorrecto',
+        });
+        }
+        const eliminada = await Categoria.findByIdAndDelete(id);
+        if (!eliminada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Categoria no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Categoria eliminada',
+        });
+    } catch (error) {
+        console.error('Error al eliminar categoria:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar categoria',
+        });
+    }
+};;
+</file>
+
+<file path="backend/src/controllers/dificultadController.js">
+import Dificultad from '../models/Dificultad.js';
+import mongoose from 'mongoose';
+//get
+export const getDificultades = async (req, res) => {
+    try {
+        const dificultades = await Dificultad.find().lean();
+        return res.status(200).json({
+        ok: true,
+        message: 'Dificultades obtenidas',
+        data: dificultades,
+        });
+    } catch (error) {
+        console.error('Error al listar dificultades:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al listar dificultades',
+        });
+    }
+};
+//get
+export const getDificultadById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de dificultad inválido',
+        });
+        }
+        const dificultad = await Dificultad.findById(id);
+        if (!dificultad) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.status(200).json({
+        ok: true,
+        message: 'Dificultad obtenida',
+        data: dificultad,
+        });
+    } catch (error) {
+        console.error('Error al obtener dificultad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al obtener dificultad',
+        });
+    }
+};
+//create
+export const createDificultad = async (req, res) => {
+    try {
+        const nueva = await Dificultad.create(req.body);
+        return res.status(201).json({
+        ok: true,
+        message: 'Dificultad creada',
+        data: nueva,
+        });
+    } catch (error) {
+        console.error('Error al crear dificultad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear dificultad',
+        });
+    }
+};
+//update
+export const updateDificultad = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de dificultad incorrecto',
+        });
+        }
+        const actualizada = await Dificultad.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+        });
+        if (!actualizada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Dificultad actualizada',
+        data: actualizada,
+        });
+    } catch (error) {
+        console.error('Error al actualizar dificultad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar dificultad',
+        });
+    }
+};
+//delete
+export const deleteDificultad = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de dificultad incorrecto',
+        });
+        }
+        const eliminada = await Dificultad.findByIdAndDelete(id);
+        if (!eliminada) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Dificultad no encontrada',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Dificultad eliminada',
+        });
+    } catch (error) {
+        console.error('Error al eliminar dificultad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar dificultad',
+        });
+    }
+};
+</file>
+
+<file path="backend/src/controllers/rangoEdadController.js">
+import RangoEdad from '../models/RangoEdad.js';
+import mongoose from 'mongoose';
+//get
+export const getRangosEdad = async (req, res) => {
+    try {
+        const rangos = await RangoEdad.find().lean();
+        return res.status(200).json({
+        ok: true,
+        message: 'Rangos de edad obtenidos',
+        data: rangos,
+        });
+    } catch (error) {
+        console.error('Error al listar rangos de edad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al listar rangos de edad',
+        });
+    }
+};
+//get
+export const getRangoEdadById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de rango de edad incorrecto',
+        });
+        }
+
+        const rango = await RangoEdad.findById(id);
+
+        if (!rango) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Rango de edad no encontrado',
+        });
+        }
+
+        return res.status(200).json({
+        ok: true,
+        message: 'Rango de edad obtenido',
+        data: rango,
+        });
+    } catch (error) {
+        console.error('Error al obtener rango de edad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al obtener rango de edad',
+        });
+    }
+};
+//create
+export const createRangoEdad = async (req, res) =>{
+    try {
+        const nuevo = await RangoEdad.create(req.body);
+        return res.status(201).json({
+        ok: true,
+        message: 'Rango de edad creado',
+        data: nuevo,
+        });
+    } catch (error) {
+        console.error('Error al crear rango de edad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al crear rango de edad',
+        });
+    }
+};
+//update
+export const updateRangoEdad = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de rango de edad incorrecto',
+        });
+        }
+        const actualizado = await RangoEdad.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true
+        });
+        if (!actualizado) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Rango de edad no encontrado',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Rango de edad actualizado',
+        data: actualizado,
+        });
+    } catch (error) {
+        console.error('Error al actualizar rango de edad:', error);
+        return res.status(400).json({
+        ok: false,
+        message: 'Error al actualizar rango de edad',
+        });
+    }
+};
+// delete
+export const deleteRangoEdad = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({
+            ok: false,
+            message: 'Id de rango de edad incoorecto',
+        });
+        }
+        const eliminado = await RangoEdad.findByIdAndDelete(id);
+        if (!eliminado) {
+        return res.status(404).json({
+            ok: false,
+            message: 'Rango de edad no encontrado',
+        });
+        }
+        return res.json({
+        ok: true,
+        message: 'Rango de edad eliminado',
+        });
+    } catch (error) {
+        console.error('Error al eliminar rango de edad:', error);
+        return res.status(500).json({
+        ok: false,
+        message: 'Error al eliminar rango de edad',
+        });
+    }
+};
+</file>
+
+<file path="backend/src/middlewares/registro.js">
+import jwt from 'jsonwebtoken';
+import { JWT_SECRET } from '../config/jwt.js';
+
+export function authMiddleware(req, res, next) {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+        return res.status(401).json({ message: 'Token no obtenido' });
+    }
+
+    const [bearer, token] = authHeader.split(' ');
+    if (bearer !== 'Bearer' || !token) {
+        return res.status(401).json({ message: 'Formato de token incorrecto' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        req.user = decoded;
+        next();
+    } catch (err) {
+        console.error('Error verificando token:', err.message);
+        return res.status(401).json({
+        message:
+            err.name === 'TokenExpiredError'
+            ? 'Token expirado'
+            : 'Token incorrecto',
+        });
+    }
+}
+//Validar roles
+export function requireRole(...rolesPermitidos) {
+    return (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({ message: 'No autenticado' });
+        }
+        if (!rolesPermitidos.includes(req.user.rol)) {
+            return res.status(403).json({ message: 'No tienes permisos suficientes' });
+        }
+        next();
+    };
+}
+</file>
+
+<file path="backend/src/models/Categoria.js">
+import mongoose from 'mongoose';
+
+const rangoSchema = new mongoose.Schema(
+    {
+        rangoEdadId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RangoEdad',
+        required: true,
+        },
+        dificultades: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Dificultad' }],
+    },
+    { _id: false }
+);
+const categoriaSchema = new mongoose.Schema(
+    {
+        nombre: { type: String, required: true },
+        descripcion: { type: String },
+        rangos: [rangoSchema],
+    },
+    { collection: 'categoria' }
+);
+export default mongoose.model('Categoria', categoriaSchema);
+</file>
+
+<file path="backend/src/models/Usuarios.js">
+import mongoose from 'mongoose';
+const usuarioSchema = new mongoose.Schema(
+    {
+        nombre: {
+        type: String,
+        required: true,
+        trim: true,
+        },
+        correo: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        },
+        password:{
+        type: String,
+        required: true,
+        },
+        rol:{
+        type: String,
+        enum: ['administrador', 'profesor','estudiante'],
+        required: true,
+        },
+    },
+    {
+        collection: 'usuarios',
+        timestamps: true,
+    }
+);
+export default mongoose.model('Usuario', usuarioSchema);
+</file>
+
+<file path="backend/src/routes/categoriaRoutes.js">
+import express from 'express';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+import {
+    getCategorias,
+    getCategoriaById,
+    createCategoria,
+    updateCategoria,
+    deleteCategoria
+} from '../controllers/categoriaController.js';
+
+const router = express.Router();
+router.get('/', getCategorias);
+router.get('/:id', getCategoriaById);
+router.post(
+    '/',
+    authMiddleware,
+    requireRole('administrador'),
+    createCategoria
+);
+router.put(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador','profesor'),
+    updateCategoria
+);
+router.delete(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador'),
+    deleteCategoria
+);
+export default router;
+</file>
+
+<file path="backend/src/routes/dificultadRoutes.js">
+import express from 'express';
+import {
+    getDificultades,
+    getDificultadById,
+    createDificultad,
+    updateDificultad,
+    deleteDificultad
+} from '../controllers/dificultadController.js';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+
+const router = express.Router();
+
+router.get('/', getDificultades);
+router.get('/:id', getDificultadById);
+
+router.post(
+    '/',
+    authMiddleware,
+    requireRole('administrador'),
+    createDificultad
+);
+router.put(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador','profesor'),
+    updateDificultad
+);
+router.delete(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador'),
+    deleteDificultad
+);
+
+export default router;
+</file>
+
+<file path="backend/package.json">
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.0.0",
+    "spdy": "^4.0.2",
+    "validator": "^13.15.23"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
+</file>
+
+<file path="backend/src/routes/rangoEdadRoutes.js">
+import express from 'express';
+import {
+    getRangosEdad,
+    getRangoEdadById,
+    createRangoEdad,
+    updateRangoEdad,
+    deleteRangoEdad
+} from '../controllers/rangoEdadController.js';
+import { authMiddleware, requireRole } from '../middlewares/registro.js';
+
+const router = express.Router();
+
+router.get('/', getRangosEdad);
+router.get('/:id', getRangoEdadById);
+router.post(
+    '/',
+    authMiddleware,
+    requireRole('administrador'),
+    createRangoEdad
+);
+router.put(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador','profesor'),
+    updateRangoEdad
+);
+router.delete(
+    '/:id',
+    authMiddleware,
+    requireRole('administrador'),
+    deleteRangoEdad
+);
+export default router;
+</file>
+
+<file path="backend/src/server.js">
+import dotenv from 'dotenv';
+import spdy from 'spdy';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+dotenv.config();
+import app from './app.js';
+import { connectDB } from './config/db.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PORT = process.env.PORT || 5000;
+
+async function start() {
+    await connectDB();
+    const certPath = path.join(__dirname, 'certs');
+    try {
+        const opcionesSSL = {
+            key: fs.readFileSync(path.join(certPath, 'server.key')),
+            cert: fs.readFileSync(path.join(certPath, 'server.cert'))
+        };
+        spdy.createServer(opcionesSSL, app).listen(PORT, (error) => {
+            if (error) {
+                console.error('Error al iniciar servidor:', error);
+                return process.exit(1);
+            }
+            console.log(`Servidor HTTP/2 seguro corriendo en https://localhost:${PORT}`);
+        });
+    } catch (error) {
+        console.error("No se pudieron leer los certificados SSL.");
+        console.error("Asegurarse de haber ejecutado 'node generar-cert.js' y que la carpeta src/certs tenga los archivos.");
+        console.error(error.message);
+        process.exit(1);
+    }
+}
+start();
+</file>
+
+<file path=".gitignore">
+#Dependencias
+node_modules/
+#Seguridad 
+.env
+.env.local
+.env.*
+file-pass
+# Logs y Errores
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+#Archivos Basura del Sistema Operativo 
+.DS_Store
+Thumbs.db
+#Configuración de Editores
+.vscode/
+.idea/
+
+dist/
+coverage/
+</file>
+
+<file path="backend/src/controllers/registroController.js">
+import Usuario from '../models/Usuarios.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import validator from 'validator';
+import { JWT_SECRET, JWT_EXPIRES_IN } from '../config/jwt.js';
+
+export const registrarUsuario = async (req, res) => {
+    try {
+        const { nombre, correo, password } = req.body;
+        if (!nombre || !correo || !password) {
+        return res.status(400).json({ message: 'Faltan campos necesarios' });
+        }
+        const yaExiste = await Usuario.findOne({ correo });
+        if (yaExiste) {
+        return res.status(400).json({ message: 'El correo ya fue registrado' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const nuevoUsuario = new Usuario({
+        nombre,
+        correo,
+        password: hashedPassword,
+        rol: 'estudiante',
+        });
+        await nuevoUsuario.save();
+        const token = jwt.sign(
+        { id: nuevoUsuario._id, correo: nuevoUsuario.correo, rol: nuevoUsuario.rol },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
+        );
+        res.status(201).json({
+        message: 'Usuario registrado',
+        usuario: {
+            id: nuevoUsuario._id,
+            nombre: nuevoUsuario.nombre,
+            correo: nuevoUsuario.correo,
+            rol: nuevoUsuario.rol,
+        },
+        token,
+        });
+    } catch (error) {
+        console.error('Error en registrarUsuario', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+export const login = async (req, res) => {
+    try {
+        const { correo, password } = req.body;
+        if (!correo || !password) {
+        return res.status(400).json({ message: 'Faltan credenciales' });
+        }
+        const usuario = await Usuario.findOne({ correo });
+        if (!usuario) {
+        return res.status(400).json({ message: 'Credenciales incorrectas' });
+        }
+        const match = await bcrypt.compare(password, usuario.password);
+        if (!match) {
+        return res.status(400).json({ message: 'Credenciales incorrectas' });
+        }
+        const token = jwt.sign(
+        { id: usuario._id, correo: usuario.correo, rol: usuario.rol },
+        JWT_SECRET,
+        { expiresIn: JWT_EXPIRES_IN }
+        );
+        res.json({
+        message: 'Login exitoso',
+        usuario: {
+            id: usuario._id,
+            nombre: usuario.nombre,
+            correo: usuario.correo,
+            rol: usuario.rol,
+        },
+        token,
+        });
+    } catch (error) {
+        console.error('Error en login', error);
+        res.status(500).json({ message: 'Error en el servidor' });
+    }
+};
+</file>
+
+<file path="backend/src/app.js">
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
+import { errorHandler } from './middlewares/errorHandler.js';
+
+import categoriaRoutes from './routes/categoriaRoutes.js';
+import dificultadRoutes from './routes/dificultadRoutes.js';
+import rangoEdadRoutes from './routes/rangoEdadRoutes.js';
+import registroRoutes from './routes/registroRoutes.js';
+import usuarioRoutes from './routes/usuarioRoutes.js';
+import subCategoriaRoutes from './routes/subCategoriaRoutes.js';
+
+const app = express();
+
+app.use(helmet({
+    contentSecurityPolicy: false, 
+}));
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100,
+    message: {
+        success: false,
+        error: 'Limite de peticiones alcanzado intenta en 15 minutos'
+    }
+});
+
+const authLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000,
+    max: 10,
+    message: {
+        success: false,
+        error: 'Demasiados intentos'
+    }
+});
+
+app.use('/api/inicio/login', authLimiter);
+app.use('/api/inicio/register', authLimiter);
+app.use('/api/', apiLimiter);
+
+app.use(cors({
+    origin: ['http://127.0.0.1:5500', 'http://localhost:5500'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
+app.use(express.json());
+
+app.use('/api/inicio', registroRoutes);
+app.use('/api/categorias', categoriaRoutes);
+app.use('/api/dificultades', dificultadRoutes);
+app.use('/api/rangos-edad', rangoEdadRoutes);
+app.use('/api/usuarios', usuarioRoutes);
+app.use('/api/subcategorias', subCategoriaRoutes);
+
+app.get('/', (req, res) => {
+    res.send('API funcionando correctamente');
+});
+
+app.use(errorHandler);
+
+export default app;
+</file>
+
+</files>
