@@ -31,8 +31,11 @@ export const listarCuestionarios = async (req, res) => {
     try {
         const { categoria, dificultad } = req.query;
         let filtro = {};
+
         if (req.user.rol === 'profesor') {
             filtro.creador = req.user.id;
+        } else if (req.user.rol === 'estudiante') {
+            filtro.estado = 'PUBLICADO';
         }
         if (categoria) filtro.categoria = categoria;
         if (dificultad) filtro.dificultad = dificultad;

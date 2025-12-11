@@ -11,7 +11,7 @@ const router = Router();
 
 router.use(authMiddleware);
 router.get('/', 
-    requireRole('profesor', 'administrador'),
+    requireRole('profesor', 'administrador', 'estudiante'),
     listarCuestionarios
 );
 
