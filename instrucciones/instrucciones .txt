@@ -9,7 +9,7 @@ REQUISITOS PREVIOS:
 1. Node.js instalado (v16 o superior).
 2. MongoDB instalado y ejecutándose localmente (o una URI de conexión válida).
 
-PASO 1: INSTALACIÓN DE DEPENDENCIAS GENERALES
+** PASO 1: INSTALACIÓN DE DEPENDENCIAS GENERALES **
 El proyecto tiene scripts de configuración en la raíz que necesitan dependencias.
 
 1. Abra una terminal en la carpeta raíz del proyecto.
@@ -17,7 +17,7 @@ El proyecto tiene scripts de configuración en la raíz que necesitan dependenci
    
    npm install
 
-PASO 2: GENERACIÓN DE CERTIFICADOS SSL (CRÍTICO)
+** PASO 2: GENERACIÓN DE CERTIFICADOS SSL (CRÍTICO Y ESENCIAL) **
 
 El servidor está configurado para usar protocolo HTTP/2 seguro. Esto requiere
 certificados SSL. Por seguridad, estos archivos NO se incluyen en el código 
@@ -30,7 +30,7 @@ fuente y deben generarse en su máquina.
    > Resultado esperado: El script creará automáticamente la carpeta 
    > "backend/src/certs" con los archivos "server.cert" y "server.key".
 
-PASO 3: CONFIGURACIÓN DEL BACKEND
+** PASO 3: CONFIGURACIÓN DEL BACKEND **
 
 Ahora configuraremos el servidor API.
 
@@ -58,7 +58,7 @@ Ahora configuraremos el servidor API.
    *Nota: Si su MongoDB tiene usuario/contraseña, ajuste la linea MONGO_URI.
 
 
-PASO 5: EJECUCIÓN DEL SERVIDOR
+** PASO 4: EJECUCIÓN DEL SERVIDOR **
 
 1. Entre a la carpeta backend:
    
@@ -124,4 +124,6 @@ Gestión Visual: MongoDB Compass (Para ver los datos).
 Pruebas API: Postman (Para probar endpoints).
 Terminal: Git Bash o Powershell (Para correr el servidor).
 
-Tambien hay ejemplos en la carpeta database, estos son ejemplos de entrada en mongo db
+Tambien hay ejemplos en la carpeta database, estos son ejemplos de entrada en mongo db donde abarcan la mayor parte de ejemplos
+en diferentes colecciones(categoria, subcategoria, usuario, dificultad, rangoEdad), estos mismos se pueden usar para poder ingresar
+en la base de dato.

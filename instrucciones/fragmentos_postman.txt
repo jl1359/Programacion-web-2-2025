@@ -1,0 +1,567 @@
+Guia para probar los end points en Postman
+
+Esta guía explica qué peticiones ejecutar, en qué orden y qué datos (JSON) 
+enviar para probar el flujo completo
+
+Configurar variables o crear/usar un archivo Environment
+
+En este caso uso estos datos para hacer pruebas mas rapidas
+
+baseUrl  -> en aqui va la direccion del backend https://localhost:5000/api
+Los siguientes datos(variables) se dejan en blanco porque se generan para cada usuario
+token_admin
+token_profe
+token_estudiante
+
+** Primero comenzamos con el registro y login en distinto aspectos
+** Cabe recalcar que estos datos seran de prueba con datos en la base de datos
+registro de nuevo usuario
+
+    POST {{baseUrl}}/inicio/register
+
+Con un archivo json de ejemplo asi:
+    {
+  "nombre": "jose1",
+  "correo": "jose1533336@gmail.com",
+  "password": "123456"
+}
+
+Deberia de generar un resultado asi:
+{
+    "message": "Usuario registrado",
+    "usuario": {
+        "id": "693b8ab1962a73c12a8467cf",
+        "nombre": "jose1",
+        "correo": "jose1533336@gmail.com",
+        "rol": "estudiante"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5M2I4YWIxOTYyYTczYzEyYTg0NjdjZiIsImNvcnJlbyI6Impvc2UxNTkzMzMzNkBnbWFpbC5jb20iLCJyb2wiOiJlc3R1ZGlhbnRlIiwiaWF0IjoxNzY1NTA5ODA5LCJleHAiOjE3NjU1MTM0MDl9.PY7L0806Taw4oLUOeNtO1uTCKH4F1OMonldirYao91k"
+}
+
+login de un administrador
+
+POST    {{baseUrl}}/inicio/login
+
+{
+  "correo": "jose1359@gmail.com",
+  "password": "12345678"
+}
+Tambien se puede aplicar en scripts en Post-response el siguiente codigo para no estar copiando a cada rato 
+los tokens:
+    const json = pm.response.json();
+    if (json.token) {
+    pm.environment.set("token_admin", json.token);
+    }
+Esto generara la variable token_admin
+
+Para Verificar que si fue correcto el login deberia salirnos asi:
+{
+    "message": "Login exitoso",
+    "usuario": {
+        "id": "69317e62d116d0b30f0e6a06",
+        "nombre": "Administrador 2",
+        "correo": "jose1359@gmail.com",
+        "rol": "administrador"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzE3ZTYyZDExNmQwYjMwZjBlNmEwNiIsImNvcnJlbyI6Impvc2UxMzU5QGdtYWlsLmNvbSIsInJvbCI6ImFkbWluaXN0cmFkb3IiLCJpYXQiOjE3NjU0ODk3MjMsImV4cCI6MTc2NTQ5MzMyM30.S6fpjpeOPx0zATU0RNCAOETvmM44oqdnq3dX4Ag6LUw"
+}
+
+** login de cualquier usuario
+
+POST    {{baseUrl}}/inicio/login
+{
+  "correo": "estudiante1@gmail.com",
+  "password": "123456"
+}
+De igual manera que en el login de administrador podemos guardar el token automáticamente:
+const json = pm.response.json();
+if (json.token) {
+  pm.environment.set("token_estudiante", json.token);
+}
+
+{
+    "message": "Login exitoso",
+    "usuario": {
+        "id": "6935e1255c94cc6c735ca782",
+        "nombre": "Estudiante",
+        "correo": "estudiante1@gmail.com",
+        "rol": "estudiante"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzVlMTI1NWM5NGNjNmM3MzVjYTc4MiIsImNvcnJlbyI6ImVzdHVkaWFudGUxQGdtYWlsLmNvbSIsInJvbCI6ImVzdHVkaWFudGUiLCJpYXQiOjE3NjU0OTA0NjUsImV4cCI6MTc2NTQ5NDA2NX0.U6bevgbBhcLaw4_rgwSMyRhBHcMWULyPEGC3YcR2D_8"
+}
+
+** Aqui veremos si el perfil de cada usuario es el indicado
+GET   {{baseUrl}}/usuarios/me
+Ojo en este apartado debemos usar los token que generemos para poder ver cada perfil
+
+Debemos de dirigirnos a Authorization
+Ahi seleccionar Bearer token, en ahi debemos de poner el nombre de la variable que queremos ver
+        {{token_estudiante}}
+        {{token_profe}}
+        {{token_admin}}
+
+{
+    "_id": "6935e1255c94cc6c735ca782",
+    "nombre": "Estudiante",
+    "correo": "estudiante1@gmail.com",
+    "rol": "estudiante",
+    "createdAt": "2025-12-07T20:18:45.413Z",
+    "updatedAt": "2025-12-07T20:18:45.413Z",
+    "__v": 0
+}
+{
+    "_id": "69317e62d116d0b30f0e6a06",
+    "nombre": "Administrador 2",
+    "correo": "jose1359@gmail.com",
+    "rol": "administrador",
+    "createdAt": "2025-12-04T12:28:18.700Z",
+    "updatedAt": "2025-12-04T12:28:18.700Z",
+    "__v": 0
+}
+
+** Para ver todos los usuarios 
+GET    {{baseUrl}}/usuarios
+
+Nos deberia de mostrar la lista de usuarios 
+
+** Para convertir o ascender a un usuario a profesor debemos de 
+PUT   {{baseUrl}}/usuarios/ID_de usuario/hacer-profesor
+
+Aqui debemosde estar en Authorization con el token de admin, para evitar errores
+
+** login de profesor
+Igual que anteriormente hacemos 
+
+POST   {{baseUrl}}/inicio/login
+
+{
+    "correo": "estudiante2@gmail.com",
+    "password": "123456"
+}
+
+Y  de igual forma podemos aplicar un script para guardar automáticamente el token 
+const json = pm.response.json();
+if (json.token) {
+  pm.environment.set("token_profesor", json.token);
+}
+
+{
+    "message": "Login exitoso",
+    "usuario": {
+        "id": "69362fa410269374c43dd587",
+        "nombre": "Estudiante2",
+        "correo": "estudiante2@gmail.com",
+        "rol": "profesor"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MzYyZmE0MTAyNjkzNzRjNDNkZDU4NyIsImNvcnJlbyI6ImVzdHVkaWFudGUyQGdtYWlsLmNvbSIsInJvbCI6InByb2Zlc29yIiwiaWF0IjoxNzY1NDg5ODMyLCJleHAiOjE3NjU0OTM0MzJ9.ocjOLwCgc_e-e6jUi6YCGGkIMv8U7beVQuATKzxosQo"
+}
+
+** Por ultimo si queremos convertir a un usuario a administrador debemos aplicar esto
+PUT   {{baseUrl}}/usuarios/id de usuario/rol
+
+OJO aqui solo puede aplicar este permiso un administrador registrado o creado anteriormente desde la base de datos, 
+igual aqui aplicamos Authorization con el token de admin
+
+{
+    "rol": "administrador"
+}
+
+==================Ahora el apartado de categorias, dificultades, y rangos de edad
+Aqui solo tiene autoridad en los aspectos de CRUDS el admin
+
+En subcategorias administrador y profesor comparten permisos a excepcion de que admin puede borrar subcategorias y profesor no
+En cuestionario tienen los mismos permisos
+
+** Lista de categorias 
+    GET   {{baseUrl}}/categorias
+** Lista de rangoEdad
+    GET   {{baseUrl}}/rangos-Edad
+** Lista de dificultades
+    GET   {{baseUrl}}/dificultades    
+
+** Para crear nuevos datos en la base de datos ojo con los permisos, en este apartado es necesario usar el token de administrador
+    *crear_categoria
+        POST   {{baseUrl}}/categorias
+        {
+        "nombre": "Logica",
+        "descripcion": "Problemas de razonamiento"
+        }
+
+resultado esperado:
+{
+    "ok": true,
+    "message": "Categoria creada",
+    "data": {
+        "nombre": "Logica",
+        "descripcion": "Problemas de razonamiento",
+        "_id": "693b354695d328f51576d1dc",
+        "__v": 0
+    }
+}
+
+
+    *editar una categoria 
+     PUT   {{baseUrl}}/categorias/id de categoria
+        {
+            "descripcion": "Materia de Logica"
+        }
+resultado esperado:
+
+{
+    "ok": true,
+    "message": "Categoria actualizada",
+    "data": {
+        "_id": "693b9c90d7658394027cbd6a",
+        "nombre": "Logica",
+        "descripcion": "Materia de Logica",
+        "__v": 0
+    }
+}
+
+    *para eliminar una categoria 
+    DELETE {{baseUrl}}/categorias/id de categoria
+     
+De igual forma se puede aplicar en los siguientes:
+
+DIFICULTAD 
+
+** para crear una nueva dificultad:
+POST   {{baseUrl}}/dificultades
+
+{
+  "nombre": "Extremo",
+  "descripcion": "Nivel extremo",
+  "orden": 5
+}
+{
+    "ok": true,
+    "message": "Dificultad creada",
+    "data": {
+        "nombre": "Extremo",
+        "descripcion": "Nivel extremo",
+        "orden": 5,
+        "_id": "693b9d78d7658394027cbd6d",
+        "__v": 0
+    }
+}
+** para editar una dificultad:
+PUT {{baseUrl}}/dificultades/693b9d78d7658394027cbd6d
+
+{
+    "descripcion": "Nivel final XD"
+}
+
+{
+    "ok": true,
+    "message": "Dificultad actualizada",
+    "data": {
+        "_id": "693b9d78d7658394027cbd6d",
+        "nombre": "Extremo",
+        "descripcion": "Nivel final XD",
+        "orden": 5,
+        "__v": 0
+    }
+}
+
+** para eliminar
+
+DELETE   {{baseUrl}}/dificultades/693b9d78d7658394027cbd6d
+
+{
+    "ok": true,
+    "message": "Dificultad eliminada"
+}
+
+
+*** PARA RANGO DE Edad
+
+**Para crear
+POST   {{baseUrl}}/rangos-Edad
+
+{
+    "nombre": "mayores",
+    "edadMin": 25,
+    "edadMax": 60
+}
+
+{
+    "ok": true,
+    "message": "Rango de edad creado",
+    "data": {
+        "nombre": "mayores",
+        "edadMin": 25,
+        "edadMax": 60,
+        "_id": "693b9e60d7658394027cbd73",
+        "__v": 0
+    }
+}
+
+** Para editar:
+
+PUT   {{baseUrl}}/rangos-Edad/693b9e60d7658394027cbd73
+
+{
+    "edadMax": 65
+}
+
+{
+    "ok": true,
+    "message": "Rango de edad actualizado",
+    "data": {
+        "_id": "693b9e60d7658394027cbd73",
+        "nombre": "mayores",
+        "edadMin": 25,
+        "edadMax": 65,
+        "__v": 0
+    }
+}
+
+** Para eliminar:
+
+DELETE {{baseUrl}}/rangos-Edad/693b9e60d7658394027cbd73
+
+{
+    "ok": true,
+    "message": "Rango de edad eliminado"
+}
+
+****** Ya para subcategoria como no es global se puede hacer crear y editar para Administrador y profesor pero eliminar solo el administrador
+
+** crear subcategoria:
+POST {{baseUrl}}/subcategorias
+
+{
+  "nombre": "Tablas de verdad",
+  "descripcion": "tablas de verdad",
+    "categoria":"693b354695d328f51576d1dc" 
+}
+
+{
+    "ok": true,
+    "message": "Subcategoria creada",
+    "data": {
+        "nombre": "Tablas de verdad",
+        "descripcion": "tablas de verdad",
+        "categoria": "693b354695d328f51576d1dc",
+        "_id": "693b9f95d7658394027cbd78",
+        "createdAt": "2025-12-11T21:46:54.878Z",
+        "updatedAt": "2025-12-11T21:46:54.878Z",
+        "__v": 0
+    }
+}
+
+** PARA VER:
+GET   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+
+{
+    "ok": true,
+    "message": "Subcategoria obtenida",
+    "data": {
+        "_id": "693b9f95d7658394027cbd78",
+        "nombre": "Tablas de verdad",
+        "descripcion": "tablas de verdad",
+        "categoria": {
+            "_id": "693b354695d328f51576d1dc",
+            "nombre": "Logica"
+        },
+        "createdAt": "2025-12-12T04:52:37.397Z",
+        "updatedAt": "2025-12-12T04:52:37.397Z",
+        "__v": 0
+    }
+}
+
+** PARA EDITAR:
+PUT   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+
+{
+    "descripcion": "AND Y OR"
+}
+
+{
+    "ok": true,
+    "message": "Subcategoria actualizada",
+    "data": {
+        "_id": "693b9f95d7658394027cbd78",
+        "nombre": "Tablas de verdad",
+        "descripcion": "AND Y OR",
+        "categoria": "693b354695d328f51576d1dc",
+        "createdAt": "2025-12-12T04:52:37.397Z",
+        "updatedAt": "2025-12-12T04:54:56.659Z",
+        "__v": 0
+    }
+}
+
+** Para eliminar:
+DELETE  {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+
+{
+    "ok": true,
+    "message": "Subcategoria eliminada"
+}
+
+
+===============EXTRA PARA VER COMO FUNCIOANRIA EN UN CUESTIONARIO NORMALMENTE==================
+Para esta parte casi todos los roles comparten los mismos permisos, solo varian en la creacion, editar y eliminacion
+
+1.  PARA crear:
+POST   {{baseUrl}}/cuestionario
+
+{
+  "titulo": "Cuestionario de Matematicas",
+  "descripcion": "Cuestionario de prueba",
+  "categoria": "6923d59a3c85f1bd46fc63dc",
+  "subcategoria": "693705e1b5c2af18a5b107a7",
+  "dificultad": "691e94bbb75006283850c315",
+  "rangoEdad": "691e95bab75006283850c327"
+}
+
+resultado:
+{
+    "success": true,
+    "message": "Cuestionario creado exitosamente",
+    "data": {
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Cuestionario de prueba",
+        "categoria": "6923d59a3c85f1bd46fc63dc",
+        "subcategoria": "693705e1b5c2af18a5b107a7",
+        "dificultad": "691e94bbb75006283850c315",
+        "rangoEdad": "691e95bab75006283850c327",
+        "creador": "69317e62d116d0b30f0e6a06",
+        "estado": "BORRADOR",
+        "_id": "693b3c4b58e9c9fa613d1e00",
+        "createdAt": "2025-12-11T21:48:59.323Z",
+        "updatedAt": "2025-12-11T21:48:59.323Z",
+        "__v": 0
+    }
+}
+
+**VER CUESTIOANRIOS:
+GET   {{baseUrl}}/cuestionario
+
+[
+    {
+        "_id": "693b3caf58e9c9fa613d1e03",
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Creado por un profesor xd",
+        "categoria": {
+            "_id": "6923d59a3c85f1bd46fc63dc",
+            "nombre": "Matematicas"
+        },
+        "subcategoria": {
+            "_id": "6937069ab5c2af18a5b107ab",
+            "nombre": "Algebra"
+        },
+        "dificultad": {
+            "_id": "691e94bbb75006283850c315",
+            "nombre": "Facil"
+        },
+        "rangoEdad": {
+            "_id": "691e95bab75006283850c327",
+            "nombre": "primaria inicial"
+        },
+        "creador": "69362fa410269374c43dd587",
+        "estado": "BORRADOR",
+        "createdAt": "2025-12-11T21:50:39.585Z",
+        "updatedAt": "2025-12-11T21:50:39.585Z",
+        "__v": 0
+    },
+    {
+        "_id": "693b3c4b58e9c9fa613d1e00",
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Cuestionario de prueba",
+        "categoria": {
+            "_id": "6923d59a3c85f1bd46fc63dc",
+            "nombre": "Matematicas"
+        },
+        "subcategoria": {
+            "_id": "693705e1b5c2af18a5b107a7",
+            "nombre": "Aritmetica"
+        },
+        "dificultad": {
+            "_id": "691e94bbb75006283850c315",
+            "nombre": "Facil"
+        },
+        "rangoEdad": {
+            "_id": "691e95bab75006283850c327",
+            "nombre": "primaria inicial"
+        },
+        "creador": "69317e62d116d0b30f0e6a06",
+        "estado": "BORRADOR",
+        "createdAt": "2025-12-11T21:48:59.323Z",
+        "updatedAt": "2025-12-11T21:48:59.323Z",
+        "__v": 0
+    },
+    {
+        "_id": "693764b10be2f710bb94c65d",
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Prueba de cuestionario",
+        "categoria": {
+            "_id": "6923d59a3c85f1bd46fc63dc",
+            "nombre": "Matematicas"
+        },
+        "subcategoria": {
+            "_id": "693705e1b5c2af18a5b107a7",
+            "nombre": "Aritmetica"
+        },
+        "dificultad": {
+            "_id": "691e94bbb75006283850c315",
+            "nombre": "Facil"
+        },
+        "rangoEdad": {
+            "_id": "691e95bab75006283850c327",
+            "nombre": "primaria inicial"
+        },
+        "creador": "69317e62d116d0b30f0e6a06",
+        "estado": "PUBLICADO",
+        "createdAt": "2025-12-08T23:52:17.863Z",
+        "updatedAt": "2025-12-08T23:58:04.048Z",
+        "__v": 0
+    }
+]
+
+**PARA EDITAR:
+ PUT   {{baseUrl}}/cuestionarios/693764b10be2f710bb94c65d
+
+ {
+    "descripcion": "Prueba de cuestionario"
+}
+
+**PARA ELIMINAR:
+DELETE   {{baseUrl}}/cuestionarios/69364b0646292df8c04170ce
+
+
+**PARA CAMBIAR EL ESTADO DE DICHO CUESTIOANRIO:
+PUT {{baseUrl}}/cuestionarios/693764b10be2f710bb94c65d
+
+**PARA VER CUESTIOANRIOS PUBLICADOS SOLO DEBEMOS USAR TOKEN DE Estudiante:
+
+GET {{baseUrl}}/cuestionario/
+
+[
+    {
+        "_id": "693764b10be2f710bb94c65d",
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Prueba de cuestionario",
+        "categoria": {
+            "_id": "6923d59a3c85f1bd46fc63dc",
+            "nombre": "Matematicas"
+        },
+        "subcategoria": {
+            "_id": "693705e1b5c2af18a5b107a7",
+            "nombre": "Aritmetica"
+        },
+        "dificultad": {
+            "_id": "691e94bbb75006283850c315",
+            "nombre": "Facil"
+        },
+        "rangoEdad": {
+            "_id": "691e95bab75006283850c327",
+            "nombre": "primaria inicial"
+        },
+        "creador": "69317e62d116d0b30f0e6a06",
+        "estado": "PUBLICADO",
+        "createdAt": "2025-12-08T23:52:17.863Z",
+        "updatedAt": "2025-12-08T23:58:04.048Z",
+        "__v": 0
+    }
+]
