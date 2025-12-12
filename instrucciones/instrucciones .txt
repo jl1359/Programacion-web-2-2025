@@ -1,0 +1,127 @@
+GUÍA DE INSTALACIÓN Y EJECUCIÓN - PROYECTO WEB 2
+
+Este documento detalla los pasos exactos para desplegar el proyecto en un 
+entorno local. El sistema consta de un Backend (Node.js/Express) con soporte 
+HTTP/2 y base de datos MongoDB.
+
+REQUISITOS PREVIOS:
+
+1. Node.js instalado (v16 o superior).
+2. MongoDB instalado y ejecutándose localmente (o una URI de conexión válida).
+
+PASO 1: INSTALACIÓN DE DEPENDENCIAS GENERALES
+El proyecto tiene scripts de configuración en la raíz que necesitan dependencias.
+
+1. Abra una terminal en la carpeta raíz del proyecto.
+2. Ejecute el comando:
+   
+   npm install
+
+PASO 2: GENERACIÓN DE CERTIFICADOS SSL (CRÍTICO)
+
+El servidor está configurado para usar protocolo HTTP/2 seguro. Esto requiere
+certificados SSL. Por seguridad, estos archivos NO se incluyen en el código 
+fuente y deben generarse en su máquina.
+
+1. En la misma terminal (raíz del proyecto), ejecute:
+
+   node generar-cert.js
+
+   > Resultado esperado: El script creará automáticamente la carpeta 
+   > "backend/src/certs" con los archivos "server.cert" y "server.key".
+
+PASO 3: CONFIGURACIÓN DEL BACKEND
+
+Ahora configuraremos el servidor API.
+
+1. Navegue a la carpeta del backend:
+   
+   cd backend
+
+2. Instale las dependencias del servidor:
+
+   npm install
+
+3. Cree el archivo de variables de entorno:
+   - Cree un archivo nuevo llamado ".env" dentro de la carpeta "backend".
+   - Copie y pegue el siguiente contenido dentro de ".env":
+
+    INICIO DEL ARCHIVO .ENV 
+   PORT=5000
+   MONGO_URI=mongodb://localhost:27017/nombreproyecto_web2
+   JWT_SECRET=clave_secreta_desarrollo_123
+   JWT_EXPIRES_IN=4h
+   NODE_ENV=development
+
+    FIN DEL ARCHIVO .ENV 
+
+   *Nota: Si su MongoDB tiene usuario/contraseña, ajuste la linea MONGO_URI.
+
+
+PASO 5: EJECUCIÓN DEL SERVIDOR
+
+1. Entre a la carpeta backend:
+   
+   cd backend
+
+2. Inicie el servidor en modo desarrollo:
+
+   npm run dev
+
+3. Verifique la consola. Debería ver el mensaje:
+   "Servidor HTTP/2 seguro corriendo en https://localhost:5000"
+   "MongoDB Conectado correctamente..."
+
+
+AVISO DE SEGURIDAD DEL NAVEGADOR:
+---------------------------------
+Al intentar conectar con el Backend, el navegador mostrará una advertencia 
+diciendo "La conexión no es privada" o "Sitio no seguro".
+Esto es normal porque estamos usando certificados autofirmados localmente.
+
+SOLUCIÓN:
+1. Haga clic en "Configuración avanzada" u "Opciones avanzadas".
+2. Haga clic en "Continuar a localhost (no seguro)".
+
+
+Puede registrar nuevos usuarios desde la pantalla de Registro.
+
+Roles disponibles en el sistema:
+- estudiante (por defecto al registrarse)
+- profesor
+- administrador
+
+Variables de Entorno Claras (.env)
+En tu archivo .env, asegúrate de usar el puerto estándar y definir el nombre de la base de datos explícitamente. Esto evita que tus datos se guarden en la base test por defecto.
+
+Fragmento de código
+
+# Define el nombre 'proyecto_web2'(ejemplo) al final
+
+MONGO_URI=mongodb://localhost:27017/proyecto_web2
+Si se usa Atlas (nube), la estructura cambia, pero para local esta es la estándar.
+
+3. La Herramienta Indispensable: MongoDB Compass
+Debes tener instalado MongoDB Compass (es la interfaz gráfica oficial y gratuita).
+
+¿Por qué es vital para tu proyecto?
+Verificar Referencias: Puedes entrar a la colección cuestionarios y ver si el campo categoria realmente tiene un ObjectId válido o si está guardando null.
+
+4. Flujo de Trabajo "Anti-Problemas"
+Para evitar errores de lógica en el futuro, adopta esta rutina:
+
+Cambio en Modelo: Si modificas un archivo en models/ (ej. agregas un campo a Usuario).
+Revisión en Compass: Entra a Compass y borra los datos viejos que ya no coinciden con el nuevo modelo.
+Reinicio de Servidor: Siempre reinicia el backend (npm run dev) para que Mongoose registre los nuevos esquemas.
+
+Prueba en Postman: Verifica que el JSON de respuesta tenga la estructura nueva.
+
+* Resumen general apps necesarias y obligatorias
+
+Editor: VS Code.
+Base de Datos: MongoDB Community Server (Motor).
+Gestión Visual: MongoDB Compass (Para ver los datos).
+Pruebas API: Postman (Para probar endpoints).
+Terminal: Git Bash o Powershell (Para correr el servidor).
+
+Tambien hay ejemplos en la carpeta database, estos son ejemplos de entrada en mongo db
