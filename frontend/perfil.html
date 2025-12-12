@@ -6,12 +6,24 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Panel de Estudiante </h1>
-        <p>Bienvenido aquí puedes ver tus cursos y practicar.</p>
-        <button class="btn-secondary" onclick="logout()">Cerrar Sesion</button>
+    <div class="dashboard-container">
+        <header class="header-panel">
+            <h1>Hola, <span id="nombreUser">Estudiante</span> 👋</h1>
+            <button onclick="logout()" class="btn-secondary" style="width:auto;">Salir</button>
+        </header>
+        
+        <p>Exámenes disponibles:</p>
+        <div id="grid-examenes" class="grid-examenes">
+            </div>
     </div>
+
     <script src="js/main.js"></script>
-    <script>verificarAcceso('estudiante');</script>
+    <script src="js/estudiante.js"></script>
+    <script>
+        verificarAcceso('estudiante');
+        // Poner nombre usuario desde main.js/localStorage si se desea
+        const u = JSON.parse(localStorage.getItem('usuario') || '{}');
+        if(document.getElementById('nombreUser')) document.getElementById('nombreUser').textContent = u.nombre;
+    </script>
 </body>
 </html>

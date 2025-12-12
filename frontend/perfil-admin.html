@@ -6,15 +6,98 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Panel de Administrador</h1>
-        <p>Bienvenido, Jefe. Aquí puedes gestionar usuarios y categorias.</p>
-        <div id="admin-content">
-            <button class="btn-primary" onclick="alert('Crear categoría')">Crear Categoría</button>
-            <button class="btn-secondary" onclick="logout()">Cerrar Sesión</button>
+    <div class="dashboard-container">
+        <header class="header-panel">
+            <h1>Panel Administrador 🛠️</h1>
+            <button onclick="logout()" class="btn-secondary" style="width:auto;">Salir</button>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" onclick="cambiarTab('usuarios')">👥 Usuarios</div>
+            <div class="tab" onclick="cambiarTab('cuestionarios')">📝 Cuestionarios</div> <div class="tab" onclick="cambiarTab('categorias')">📂 Categorías</div>
+            <div class="tab" onclick="cambiarTab('subcategorias')">Rl Subcategorías</div>
+            <div class="tab" onclick="cambiarTab('dificultades')">📊 Dificultades</div>
+            <div class="tab" onclick="cambiarTab('rangos')">👶 Rangos Edad</div>
+        </div>
+
+        <div id="tab-usuarios" class="tab-content active">
+            <table class="data-table">
+                <thead><tr><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-usuarios"></tbody>
+            </table>
+        </div>
+
+        <div id="tab-cuestionarios" class="tab-content">
+            <h3>Moderación de Cuestionarios</h3>
+            <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">Como administrador, puedes ver y eliminar cualquier cuestionario del sistema.</p>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Título</th>
+                        <th>Categoría</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-cuestionarios"></tbody>
+            </table>
+        </div>
+
+        <div id="tab-categorias" class="tab-content">
+            <form id="form-categoria" class="form-inline" onsubmit="crearCategoria(event)">
+                <input type="text" id="cat-nombre" placeholder="Nombre Categoría" required>
+                <input type="text" id="cat-desc" placeholder="Descripción">
+                <button type="submit" class="btn-primary" style="width:auto;">Agregar</button>
+            </form>
+            <table class="data-table">
+                <thead><tr><th>Nombre</th><th>Descripción</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-categorias"></tbody>
+            </table>
+        </div>
+
+        <div id="tab-subcategorias" class="tab-content">
+            <form id="form-subcategoria" class="form-inline" onsubmit="crearSubcategoria(event)">
+                <select id="sub-cat-padre" required style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <option value="">Selecciona Categoría Padre...</option>
+                </select>
+                <input type="text" id="sub-nombre" placeholder="Nombre Subcategoría" required>
+                <input type="text" id="sub-desc" placeholder="Descripción">
+                <button type="submit" class="btn-primary" style="width:auto;">Agregar</button>
+            </form>
+            <table class="data-table">
+                <thead><tr><th>Subcategoría</th><th>Categoría Padre</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-subcategorias"></tbody>
+            </table>
+        </div>
+
+        <div id="tab-dificultades" class="tab-content">
+            <form id="form-dificultad" class="form-inline" onsubmit="crearDificultad(event)">
+                <input type="text" id="dif-nombre" placeholder="Nombre (ej: Difícil)" required>
+                <input type="number" id="dif-orden" placeholder="Orden" style="width:80px">
+                <button type="submit" class="btn-primary" style="width:auto;">Agregar</button>
+            </form>
+            <table class="data-table">
+                <thead><tr><th>Nombre</th><th>Orden</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-dificultades"></tbody>
+            </table>
+        </div>
+
+        <div id="tab-rangos" class="tab-content">
+            <form id="form-rango" class="form-inline" onsubmit="crearRango(event)">
+                <input type="text" id="ran-nombre" placeholder="Nombre (ej: Niños)" required>
+                <input type="number" id="ran-min" placeholder="Edad Min" style="width:80px" required>
+                <input type="number" id="ran-max" placeholder="Edad Max" style="width:80px" required>
+                <button type="submit" class="btn-primary" style="width:auto;">Agregar</button>
+            </form>
+            <table class="data-table">
+                <thead><tr><th>Nombre</th><th>Min</th><th>Max</th><th>Acciones</th></tr></thead>
+                <tbody id="tabla-rangos"></tbody>
+            </table>
         </div>
     </div>
+
     <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
     <script>verificarAcceso('administrador');</script>
 </body>
 </html>

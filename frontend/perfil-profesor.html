@@ -6,12 +6,72 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Panel de Profesor 🎓</h1>
-        <p>Bienvenido aquí puedes gestionar tus clases y dificultades.</p>
-        <button class="btn-secondary" onclick="logout()">Cerrar Sesion</button>
+    <div class="dashboard-container">
+        <header class="header-panel">
+            <div>
+                <h1>Panel Docente 👨‍🏫</h1>
+                <p>Bienvenido, <span id="nombreUser">Profesor</span></p>
+            </div>
+            <button onclick="logout()" class="btn-secondary" style="width: auto;">Cerrar Sesión</button>
+        </header>
+
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+            <h3>📝 Nuevo Cuestionario</h3>
+            <form id="form-crear">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="grid-column: span 2">
+                        <label>Título</label>
+                        <input type="text" id="titulo" required placeholder="Ej: Examen de Física I">
+                    </div>
+                    <div style="grid-column: span 2">
+                        <label>Descripción</label>
+                        <input type="text" id="descripcion" placeholder="Descripción breve">
+                    </div>
+                    
+                    <div>
+                        <label>Categoría</label>
+                        <select id="categoria" required onchange="cargarSubcategorias()">
+                            <option value="">Cargando...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Subcategoría</label>
+                        <select id="subcategoria" required disabled>
+                            <option value="">Elige categoría...</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Dificultad</label>
+                        <select id="dificultad" required><option value="">Cargando...</option></select>
+                    </div>
+                    <div>
+                        <label>Rango Edad</label>
+                        <select id="rangoEdad" required><option value="">Cargando...</option></select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="margin-top: 15px;">Crear Cuestionario</button>
+            </form>
+        </div>
+
+        <hr>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+            <h3>📚 Mis Cuestionarios</h3>
+            <button onclick="listarCuestionarios()" class="btn-secondary" style="font-size: 0.8rem; padding: 5px 10px;">🔄 Actualizar</button>
+        </div>
+        
+        <div id="lista-cuestionarios" style="margin-top: 15px;">
+            <p>Cargando...</p>
+        </div>
     </div>
+
     <script src="js/main.js"></script>
-    <script>verificarAcceso('profesor');</script>
+    <script src="js/profesor.js"></script>
+    <script>
+        verificarAcceso('profesor');
+        // Poner nombre
+        const u = JSON.parse(localStorage.getItem('usuario') || '{}');
+        if(document.getElementById('nombreUser')) document.getElementById('nombreUser').textContent = u.nombre;
+    </script>
 </body>
 </html>
