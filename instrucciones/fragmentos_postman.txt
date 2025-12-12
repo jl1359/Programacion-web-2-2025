@@ -249,7 +249,7 @@ POST   {{baseUrl}}/dificultades
     }
 }
 ** para editar una dificultad:
-PUT {{baseUrl}}/dificultades/693b9d78d7658394027cbd6d
+PUT {{baseUrl}}/dificultades/id de dificultad
 
 {
     "descripcion": "Nivel final XD"
@@ -269,7 +269,7 @@ PUT {{baseUrl}}/dificultades/693b9d78d7658394027cbd6d
 
 ** para eliminar
 
-DELETE   {{baseUrl}}/dificultades/693b9d78d7658394027cbd6d
+DELETE   {{baseUrl}}/dificultades/id de dificultad
 
 {
     "ok": true,
@@ -302,7 +302,7 @@ POST   {{baseUrl}}/rangos-Edad
 
 ** Para editar:
 
-PUT   {{baseUrl}}/rangos-Edad/693b9e60d7658394027cbd73
+PUT   {{baseUrl}}/rangos-Edad/id de rangoEdad
 
 {
     "edadMax": 65
@@ -322,7 +322,7 @@ PUT   {{baseUrl}}/rangos-Edad/693b9e60d7658394027cbd73
 
 ** Para eliminar:
 
-DELETE {{baseUrl}}/rangos-Edad/693b9e60d7658394027cbd73
+DELETE {{baseUrl}}/rangos-Edad/id de rangoEdad
 
 {
     "ok": true,
@@ -355,7 +355,7 @@ POST {{baseUrl}}/subcategorias
 }
 
 ** PARA VER:
-GET   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+GET   {{baseUrl}}/subcategorias/id de subcategoria
 
 {
     "ok": true,
@@ -375,7 +375,7 @@ GET   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
 }
 
 ** PARA EDITAR:
-PUT   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+PUT   {{baseUrl}}/subcategorias/id de subcategoria
 
 {
     "descripcion": "AND Y OR"
@@ -396,7 +396,7 @@ PUT   {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
 }
 
 ** Para eliminar:
-DELETE  {{baseUrl}}/subcategorias/693b9f95d7658394027cbd78
+DELETE  {{baseUrl}}/subcategorias/id de subcategoria
 
 {
     "ok": true,
@@ -524,18 +524,41 @@ GET   {{baseUrl}}/cuestionario
 ]
 
 **PARA EDITAR:
- PUT   {{baseUrl}}/cuestionarios/693764b10be2f710bb94c65d
+ PUT   {{baseUrl}}/cuestionario/id de cuestionario
 
  {
     "descripcion": "Prueba de cuestionario"
 }
 
 **PARA ELIMINAR:
-DELETE   {{baseUrl}}/cuestionarios/69364b0646292df8c04170ce
+DELETE   {{baseUrl}}/cuestionario/id de cuestionario
 
 
 **PARA CAMBIAR EL ESTADO DE DICHO CUESTIOANRIO:
-PUT {{baseUrl}}/cuestionarios/693764b10be2f710bb94c65d
+PUT {{baseUrl}}/cuestionario/id de cuestionario
+
+{
+    "estado": "PUBLICADO"
+}
+
+{
+    "success": true,
+    "message": "Cuestionario actualizado",
+    "data": {
+        "_id": "693b3caf58e9c9fa613d1e03",
+        "titulo": "Cuestionario de Matematicas",
+        "descripcion": "Creado por un profesor xd",
+        "categoria": "6923d59a3c85f1bd46fc63dc",
+        "subcategoria": "6937069ab5c2af18a5b107ab",
+        "dificultad": "691e94bbb75006283850c315",
+        "rangoEdad": "691e95bab75006283850c327",
+        "creador": "69362fa410269374c43dd587",
+        "estado": "PUBLICADO",
+        "createdAt": "2025-12-11T21:50:39.585Z",
+        "updatedAt": "2025-12-12T17:51:56.197Z",
+        "__v": 0
+    }
+}
 
 **PARA VER CUESTIOANRIOS PUBLICADOS SOLO DEBEMOS USAR TOKEN DE Estudiante:
 

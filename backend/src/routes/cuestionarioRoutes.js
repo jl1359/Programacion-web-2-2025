@@ -4,6 +4,7 @@ import {
     crearCuestionario,
     listarCuestionarios,
     obtenerCuestionarioPorId,
+    actualizarCuestionario,
     eliminarCuestionario
 } from '../controllers/cuestionarioController.js';
 
@@ -23,6 +24,11 @@ router.get('/:id',
 router.post('/', 
     requireRole('profesor', 'administrador'), 
     crearCuestionario
+);
+
+router.put('/:id', 
+    requireRole('profesor', 'administrador'), 
+    actualizarCuestionario
 );
 
 router.delete('/:id', 

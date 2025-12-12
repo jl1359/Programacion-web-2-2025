@@ -73,7 +73,31 @@ export const obtenerCuestionarioPorId = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el cuestionario' });
     }
 };
-
+export const actualizarCuestionario = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { titulo, descripcion, estado } = req.body;
+        const cuestionario = await Cuestionario.findById(id);
+        if (!cuestionario) {
+            return res.status(404).json({ message: 'Cuestionario no encontrado' });
+        }
+        if (req.user.rol !== 'administrador' && cuestionario.creador.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'No tienes permiso para editar este cuestionario' });
+        }
+        if (titulo) cuestionario.titulo = titulo;
+        if (descripcion) cuestionario.descripcion = descripcion;
+        if (estado) cuestionario.estado = estado;
+        await cuestionario.save();
+        res.json({
+            success: true,
+            message: 'Cuestionario actualizado',
+            data: cuestionario
+        });
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        res.status(500).json({ message: 'Error interno al actualizar' });
+    }
+};
 export const eliminarCuestionario = async (req, res) => {
     try {
         const { id } = req.params;

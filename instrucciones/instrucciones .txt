@@ -106,8 +106,8 @@ Si se usa Atlas (nube), la estructura cambia, pero para local esta es la estánd
 3. La Herramienta Indispensable: MongoDB Compass
 Debes tener instalado MongoDB Compass (es la interfaz gráfica oficial y gratuita).
 
-¿Por qué es vital para tu proyecto?
-Verificar Referencias: Puedes entrar a la colección cuestionarios y ver si el campo categoria realmente tiene un ObjectId válido o si está guardando null.
+¿Por qué es vital para la ejecucion?
+Verificar Referencias: Puedes entrar a la colección cuestionarios y ver si los campos realmente tienen un ObjectId válido o si está guardando null.
 
 4. Flujo de Trabajo "Anti-Problemas"
 Para evitar errores de lógica en el futuro, adopta esta rutina:
