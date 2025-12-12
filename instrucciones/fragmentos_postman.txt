@@ -38,7 +38,11 @@ Deberia de generar un resultado asi:
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5M2I4YWIxOTYyYTczYzEyYTg0NjdjZiIsImNvcnJlbyI6Impvc2UxNTkzMzMzNkBnbWFpbC5jb20iLCJyb2wiOiJlc3R1ZGlhbnRlIiwiaWF0IjoxNzY1NTA5ODA5LCJleHAiOjE3NjU1MTM0MDl9.PY7L0806Taw4oLUOeNtO1uTCKH4F1OMonldirYao91k"
 }
 
-login de un administrador
+**Para convertir a un usuario(estudiante) a administrador lo podemos hacer desde la base de datos:
+Cambiando el "rol": "estudiante" -> "rol": "administrador"
+Esta es la manera correcta de mantener seguridad en el sistema
+
+**login de un administrador
 
 POST    {{baseUrl}}/inicio/login
 

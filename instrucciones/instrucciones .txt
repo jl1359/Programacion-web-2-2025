@@ -6,8 +6,10 @@ HTTP/2 y base de datos MongoDB.
 
 REQUISITOS PREVIOS:
 
-1. Node.js instalado (v16 o superior).
-2. MongoDB instalado y ejecutándose localmente (o una URI de conexión válida).
+- Node.js (v18 o superior): https://nodejs.org/
+- Base de Datos MongoDB. Puede usar una de las dos opciones:
+    A) MongoDB Community Server (Local): https://www.mongodb.com/try/download/community
+    B) MongoDB Atlas (Nube): https://www.mongodb.com/cloud/atlas/register
 
 ** PASO 1: INSTALACIÓN DE DEPENDENCIAS GENERALES **
 El proyecto tiene scripts de configuración en la raíz que necesitan dependencias.
